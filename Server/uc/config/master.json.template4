@@ -1,0 +1,8 @@
+{
+  "development": {
+    "id": "master-server-${id}", "host": "${host}", "port": ${port}
+  },
+  "production": {
+    "id": "master-server-${id}", "host": "${host}", "port": ${port}
+  }
+}

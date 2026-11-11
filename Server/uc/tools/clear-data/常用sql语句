@@ -1,0 +1,7 @@
+SELECT * FROM uw_user WHERE offEarn <0 OR producePer <0
+SELECT * FROM uw_user WHERE gold <0
+SELECT * FROM uw_user WHERE id =5606
+SELECT * FROM uw_user WHERE nickName = '冷淡的山野骑士'
+
+SELECT *  FROM uw_user WHERE exData LIKE '%[%' AND exData NOT LIKE '%]%'
+SELECT *  FROM uw_user WHERE exData LIKE '%{%' AND exData NOT LIKE '%}%'

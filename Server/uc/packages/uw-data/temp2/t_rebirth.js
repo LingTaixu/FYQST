@@ -1,0 +1,12 @@
+module.exports = {
+    "1" : {id:1,rebirthLvl:1,name:'C级',lvl:120,limitLvl:175,exp:600000,maxHpTemp:3846,attackTemp:962,defenceTemp:337,magicDefenceTemp:337,hitTemp:1299,dodgeTemp:288,criticalTemp:433,disCriticalTemp:1449,describe:'提升评级后开启第三职业'},
+    "2" : {id:2,rebirthLvl:2,name:'B级',lvl:120,limitLvl:200,exp:1500000,maxHpTemp:9616,attackTemp:2404,defenceTemp:842,magicDefenceTemp:842,hitTemp:3247,dodgeTemp:720,criticalTemp:1082,disCriticalTemp:3623},
+    "3" : {id:3,rebirthLvl:3,name:'BB级',lvl:120,limitLvl:250,exp:3000000,maxHpTemp:19231,attackTemp:4808,defenceTemp:1684,magicDefenceTemp:1684,hitTemp:6494,dodgeTemp:1441,criticalTemp:2165,disCriticalTemp:7246,describe:'提升评级后开启第一个星灵契约'},
+    "4" : {id:4,rebirthLvl:4,name:'BBB级',lvl:120,limitLvl:300,exp:5800000,maxHpTemp:37180,attackTemp:9295,defenceTemp:3255,magicDefenceTemp:3255,hitTemp:12554,dodgeTemp:2786,criticalTemp:4185,disCriticalTemp:14010},
+    "5" : {id:5,rebirthLvl:5,name:'A级',lvl:120,limitLvl:300,exp:10500000,maxHpTemp:67309,attackTemp:16827,defenceTemp:5892,magicDefenceTemp:5892,hitTemp:22727,dodgeTemp:5043,criticalTemp:7576,disCriticalTemp:25362,describe:'提升评级后开启第四职业'},
+    "6" : {id:6,rebirthLvl:6,name:'AA级',lvl:120,exp:15500000,maxHpTemp:99361,attackTemp:24840,defenceTemp:8698,magicDefenceTemp:8698,hitTemp:33550,dodgeTemp:7445,criticalTemp:11183,disCriticalTemp:37440},
+    "7" : {id:7,rebirthLvl:7,name:'AAA级',lvl:120,exp:32000000,maxHpTemp:205133,attackTemp:51283,defenceTemp:17957,magicDefenceTemp:17957,hitTemp:69264,dodgeTemp:15370,criticalTemp:23088,disCriticalTemp:77295,describe:'提升评级后开启第二个星灵契约'},
+    "8" : {id:8,rebirthLvl:8,name:'S级',lvl:120,exp:51000000,maxHpTemp:326931,attackTemp:81733,defenceTemp:28620,magicDefenceTemp:28620,hitTemp:110390,dodgeTemp:24496,criticalTemp:36797,disCriticalTemp:123188},
+    "9" : {id:9,rebirthLvl:9,name:'SS级',lvl:120,exp:75000000,maxHpTemp:480781,attackTemp:120195,defenceTemp:42088,magicDefenceTemp:42088,hitTemp:162338,dodgeTemp:36023,criticalTemp:54113,disCriticalTemp:181159,describe:'提升评级后开启第三个星灵契约'},
+    "10" : {id:10,rebirthLvl:10,name:'SSS级',lvl:120,exp:111200000,maxHpTemp:712838,attackTemp:178210,defenceTemp:62402,magicDefenceTemp:62402,hitTemp:240693,dodgeTemp:53410,criticalTemp:80231,disCriticalTemp:268599}
+};

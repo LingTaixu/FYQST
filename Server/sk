@@ -1,0 +1,48 @@
+#!/bin/bash
+
+HOSTNAME="localhost"
+PORT="3306"
+USERNAME="root"
+PASSWORD="pwd123456"
+
+DB1="account"
+DB2="gmdbyzf"
+DB3="ttf_ly_game1"
+DB4="ttf_ly_gamelog"
+DB5="ttf_ly_login"
+DB6="ttf_ly_main"
+DB7="ttf_ly_osadmin"
+
+
+
+#创建数据库
+#sql="GRANT ALL PRIVILEGES ON *.* TO '${USERNAME}'@'%' IDENTIFIED BY '${PASSWORD}'WITH GRANT OPTION;"
+#sql0="FLUSH   PRIVILEGES;"
+sql1="create database ${DB1} DEFAULT CHARACTER SET utf8;"
+sql2="create database ${DB2} DEFAULT CHARACTER SET utf8;"
+sql3="create database ${DB3} DEFAULT CHARACTER SET utf8;"
+sql4="create database ${DB4} DEFAULT CHARACTER SET utf8;"
+sql5="create database ${DB5} DEFAULT CHARACTER SET utf8;"
+sql6="create database ${DB6} DEFAULT CHARACTER SET utf8;"
+sql7="create database ${DB7} DEFAULT CHARACTER SET utf8;"
+
+#根据需要是否给予全部权限 给予就把 # 删掉
+#mysql -u${USERNAME} -p${PASSWORD} -e "${sql}"
+#mysql -u${USERNAME} -p${PASSWORD} -e "${sql0}"
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} -e "${sql1}"
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} -e "${sql2}"
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} -e "${sql3}"
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} -e "${sql4}"
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} -e "${sql5}"
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} -e "${sql6}"
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} -e "${sql7}"
+
+
+#还原数据库
+mysql -u${USERNAME} -p${PASSWORD} ${DB1} < /Server/sql/account.sql
+mysql -u${USERNAME} -p${PASSWORD} ${DB2} < /Server/sql/gmdbyzf.sql
+mysql -u${USERNAME} -p${PASSWORD} ${DB3} < /Server/sql/ttf_ly_game1.sql
+mysql -u${USERNAME} -p${PASSWORD} ${DB4} < /Server/sql/ttf_ly_gamelog.sql
+mysql -u${USERNAME} -p${PASSWORD} ${DB5} < /Server/sql/ttf_ly_login.sql
+mysql -u${USERNAME} -p${PASSWORD} ${DB6} < /Server/sql/ttf_ly_main.sql
+mysql -u${USERNAME} -p${PASSWORD} ${DB7} < /Server/sql/ttf_ly_osadmin.sql

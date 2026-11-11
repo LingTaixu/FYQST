@@ -1,0 +1,51 @@
+{
+  "uwCnn": {
+    "name": "uwCnn",
+    "dbModule": "mysql",
+    "host": "",
+    "port": "",
+    "user": "",
+    "password": "",
+    "database": "",
+    "debug": [
+      "ComQueryPacket"
+    ]
+  },
+  "mainCnn": {
+    "name": "mainCnn",
+    "dbModule": "mysql",
+    "host":  "127.0.0.1",
+    "port":  "3306",
+    "user":  "fyqst",
+    "password": "pwd123456",
+    "database":  "ttf_ly_main",
+    "debug": [
+      "ComQueryPacket"
+    ]
+  },
+  "kefuCnn": {
+    "name": "kefuCnn",
+    "dbModule": "mysql",
+    "host":  "",
+    "port":  "",
+    "user":  "",
+    "password": "",
+    "database":  "",
+    "debug": [
+      "ComQueryPacket"
+    ],
+    "maxCnnNum":20
+  },
+  "loginCnn": {
+      "name": "loginCnn",
+      "dbModule": "mysql",
+      "host":  "127.0.0.1",
+      "port":  "3306",
+      "user":  "fyqst",
+      "password": "pwd123456",
+      "database":  "ttf_ly_login",
+      "debug": [
+        "ComQueryPacket"
+      ]
+    }
+}

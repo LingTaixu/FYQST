@@ -1,0 +1,6 @@
+{
+  "name": "uw-guild",
+  "version": "0.0.1",
+  "main": "index.js",
+  "private": true
+}

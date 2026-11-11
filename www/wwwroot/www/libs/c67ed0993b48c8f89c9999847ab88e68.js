@@ -1,0 +1,1 @@
+var mZmTargetFiles = ["libs/pay_sdk.js?v=0","libs/get.js?v=0"];var mZmParams = {zapid: "1966",zapkey: "66d66356cb9c260ca53198115aa0c14a",prover: "1",channel:"h5_acfun",sdkindx:"10776",channlesdkver: "v1.2.0",ukey: "ukey-1.0-ACFUNCP1533114226-ACFUNGAME1533114244"};

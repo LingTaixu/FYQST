@@ -1,0 +1,20 @@
+main
+
+admin
+
+TRUNCATE TABLE uw_manager_log;
+
+server
+
+TRUNCATE TABLE uw_account;
+TRUNCATE TABLE uw_arena_record;
+TRUNCATE TABLE uw_coupon;
+TRUNCATE TABLE uw_event;
+TRUNCATE TABLE uw_game_record;
+TRUNCATE TABLE uw_mail;
+TRUNCATE TABLE uw_notice;
+TRUNCATE TABLE uw_recharge;
+TRUNCATE TABLE uw_recharge_request;
+TRUNCATE TABLE uw_runwat;
+TRUNCATE TABLE uw_user;
+TRUNCATE TABLE uw_user_rank;

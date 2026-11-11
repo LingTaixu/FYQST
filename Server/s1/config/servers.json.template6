@@ -1,0 +1,10 @@
+{
+    "development": {
+        "c": [ { "id": "c-${id}", "host": "${c_host}", "port": ${c_port}, "clientPort":  ${c_clientPort}, "frontend": true,"cpu": ${c_cpu}}],
+        "a": [{  "id": "a--${id}","host": "${a_host}", "port": ${a_port}, "area": ${id},"cpu":  ${a_cpu}}]
+    },
+    "development": {
+        "c": [ { "id": "c-${id}", "host": "${c_host}", "port": ${c_port}, "clientPort":  ${c_clientPort}, "frontend": true,"cpu": ${c_cpu}}],
+        "a": [{  "id": "a--${id}","host": "${a_host}", "port": ${a_port}, "area": ${id},"cpu":  ${a_cpu}}]
+    }
+}

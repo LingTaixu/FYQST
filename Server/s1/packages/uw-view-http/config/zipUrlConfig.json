@@ -1,0 +1,8 @@
+{
+  "code_url":"http://192.168.1.222:2222/WarSchool/WarSchool/release/release_game/android/vtest11111112/game_code_vtest11111112.zip",
+  "update_url":"http://192.168.1.222:2222/WarSchool/WarSchool/release/release_game/android/vtest11111112/",
+  "password": "lyuwegret",
+  "white_ids":["a206992a8b2a4fb0b4da750ef0d67916","a20c79fe4f71939612195489301a1994", "b715c3343c4073c1a353afdaf2db6a40", "02f6a09d594743f39c4b819f3df2d3d2"],
+  "white_code_url":"http://temdr.egret-labs.org/uw/whitelist/w201507011009/game_code_w201507011009.zip",
+  "white_update_url":"http://temdr.egret-labs.org/uw/whitelist/w201507011009/"
+}

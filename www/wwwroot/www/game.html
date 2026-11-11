@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>绯雨骑士团H5</title>
+    <!-- 极速模式-->
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <link type="favicon" rel="shortcut icon" href="favicon.ico" />
+    <script src="js/bandwidth.js?v=20261111-1"></script>
+	<script src="js/sdk_v4.js"></script>
+    <style>
+    html,
+    body {
+        -ms-touch-action: none;
+        background: #ffffff;
+        padding: 0;
+        border: 0;
+        margin: 0;
+        height: 100%;
+    }
+    
+    #rotate_screen {
+        position: absolute;
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+
+    #rotate_screen img {
+        margin: auto;
+        width: 100%;
+    }
+
+    .h5c-loading {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    .h5c-loading .loading-bg {
+        background: url("resource/ui2/ui_bg/logo.jpg") no-repeat;
+        background-position: center 30%;
+        position: absolute;
+        background-size: contain;
+    }
+    .h5c-loading .whitebg {
+        background: #ffffff;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    .h5-loading-container {
+        position: absolute;
+        bottom: 32%;
+        width: 100%;
+    }
+    /*loaindg*/
+
+    .h5c-loading .loading-progress {
+        width: 100%;
+        height: 80%;
+        margin: 0;
+        height: 2.15039063em;
+        background-position: 50% 100%;
+    }
+
+    .h5c-loading .loading-progress-bar {
+        width: 70%;
+        height: 0.6859375em;
+        background: #ececec;
+        margin: 0 auto;
+        margin-top: 0.73242188em;
+
+        -webkit-border-radius: 1em;
+        -moz-border-radius: 1em;
+        border-radius: 1em;
+    }
+
+    .h5c-loading .loading-progress-finish {
+        width: 0;
+        height: 0.6859375em;
+        background: rgba(21, 231, 207, 1);
+
+        -webkit-border-radius: 1em;
+        -moz-border-radius: 1em;
+        border-radius: 1em;
+    }
+
+    #txtLoading {
+        color: rgba(255, 155, 155, 1);
+        margin: auto;
+        text-align: center;
+        text-shadow: 1px 1px #6d3e3e;
+        width: 340px;
+        top: 598px;
+        /* position: relative; */
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .div_refresh {
+        position: absolute;
+        text-align: center;
+        bottom: 0.85em;
+        width: 100%;
+    }
+
+    .div_refresh span {
+        color: black;
+        font-size: 1.1rem;
+    }
+
+    .div_refresh a {
+        color: rgb(222, 150, 72);
+        font-size: 1.15rem;
+        text-decoration-line: underline;
+        cursor: pointer;
+    }
+
+    .bg {
+        width: 100%;
+        background: url(resource/ui2/ui_bg/webtile.jpg)no-repeat;
+        background-position: top center;
+        background-size: cover;
+    }
+
+    .bg2 {
+        height: 100%;
+        background: url(resource/ui2/ui_bg/webtileV.jpg) no-repeat;
+    }
+
+    .bg-left {
+        position: absolute;
+        transform: rotate(180deg);
+        left: 0;
+        top: 0;
+    }
+
+    .bg-right {
+        position: absolute;;
+        right: 0;
+        top: 0;
+    }
+
+    .bg.bg-top {
+        transform-origin: 50% 50%;
+        transform: rotate(180deg);
+    }
+
+    .bg.bg-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .loading-progress-text {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    #loadingText {
+        color: black;
+        font-size: 0.85em;
+    }
+
+               canvas{
+            background: url(resource/ui2/ui_bg/bg_forge.jpg)no-repeat top/cover;
+
+    }
+    </style>
+    
+    <script type="text/javascript">
+    var __reflect = (this && this.__reflect) || function(p, c, t) {
+        p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+    };
+    var __extends = this && this.__extends || function __extends(t, e) {
+        function r() {
+            this.constructor = t;
+        }
+        for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+        r.prototype = e.prototype, t.prototype = new r();
+    };
+    var __define = this.__define || function(o, p, g, s) { Object.defineProperty(o, p, { configurable: true, enumerable: true, get: g, set: s }); };
+    </script>
+</head>
+
+<body>
+    <div class="h5c-loading" id='loadingUi' style='z-index:2;'>
+        <div class="whitebg"></div>
+        <div class="loading-bg">
+            <div class="h5-loading-container" style="display: block;">
+                <div class="loading-progress">
+                    <div class="loading-progress-bar">
+                        <div class="loading-progress-finish loading" id='loadingBar'></div>
+                        <p class="loading-progress-text" id="loadingText"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="div_refresh">
+                <span>如果长时间无法进入游戏,请<a id="a_refresh">点击刷新</a></span>
+            </div>
+        </div>
+    </div>
+    <div id="gameMainDiv" style="margin: auto;width: 100%;height: 100%;" class="egret-player " data-entry-class="Main" data-orientation="auto" data-scale-mode="showAll" data-resolution-mode="retina" data-frame-rate="30" data-content-width="480" data-content-height="800" data-show-paint-rect="false" data-multi-fingered="2" data-show-fps="false" data-show-log="false" data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+        <div class="bg-top bg"></div>
+        <div class="bg-bottom bg"></div>
+        <div class="bg-left bg2"></div>
+        <div class="bg-right bg2"></div>
+    </div>
+    <script type="text/javascript" src="libs/modules/polyfill/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="libs/modules/polyfill/polyfill.js"></script>
+    <script type="text/javascript" src="libs/modules/engine.min.js?v=6"></script>
+    <script type="text/javascript" src="libs/zm_engine_v2.js"></script>
+    <script>
+    (function() {
+        var channel = {
+            id: 10006,
+            root_url: 'http://127.0.0.1:9902/manifest',
+            bi_url: 'http://127.0.0.1:9902/bi',
+            log_url: 'http://127.0.0.1:9902/log',
+            guidelog_url: 'http://127.0.0.1:9902/guidelog'
+        };
+        window.channel = channel;
+        window.bi_url = channel.bi_url;
+        var root_url = channel.root_url;
+        //BI  login 登录index
+        var xmlArray = {
+            1: { val: 0, kingdom: "login", family: "登录index" },
+            2: { val: 1, kingdom: "start", family: "开始加载" },
+            3: { val: 2, kingdom: "load_picture", family: "加载资源" },
+            4: { val: 3, kingdom: "welcome", family: "进入游戏" },
+        };
+        window.setCheckPoint = function(step, clientid, accountId, user_level) {
+
+            if(step > 4){
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            var xmlDate = xmlArray[step];
+            if(!xmlDate) return;
+            clientid = clientid || 0;
+            accountId = 0;
+            if (window.gd &&gd.accountCtrl) {
+                accountId = gd.accountCtrl.getAccountName();
+            }
+            var userId = 0;
+            user_level = 0;
+            if (window.gd &&gd.userCtrl) {
+                userId = gd.userCtrl.getId();
+                user_level = gd.userCtrl.getLvl();
+            }
+            var url = window.bi_url +
+                "?clientid=" +
+                clientid +
+                "&accountId=" +
+                accountId +
+                "&userId=" +
+                userId +
+                "&user_level=" +
+                user_level +
+                "&value=" +
+                xmlDate.val +
+                "&kingdom=" +
+                xmlDate.kingdom +
+                "&family=" +
+                xmlDate.family +
+                "&serverId=" +
+                (window.mo ? window.mo.getLocalStorageItem("lastLoginServerId") : 0) +
+                "&channelId=" +
+                channel.id;
+            if (window.ZmSdk) {
+                var tmpUserInfo = window.ZmSdk.getInstance().getUserInfo();
+                var sdkData = {
+                    common: tmpUserInfo.common,
+                    userdata: {}
+                };
+                sdkData.userdata.uid = tmpUserInfo.userdata.uid;
+                sdkData.userdata.t = tmpUserInfo.userdata.t;
+                sdkData.userdata.sign = tmpUserInfo.userdata.sign;
+                url += "&userInfo=" + JSON.stringify(sdkData);
+            }
+            xhr.open('GET', url, true);
+            xhr.send(null);
+        };
+
+        var loadingUi;
+        var lbar;
+        var loadingInterID;
+        var progressInterID;
+        var loadpercent;
+        var loadFlag;
+        var project = {};
+        
+        //zm sdk callback
+        window.zmInitSucc = function() {
+		                    loadingUi = document.getElementById('loadingUi');
+                    lbar = document.getElementById('loadingBar');
+                    loadpercent = 0;
+                    loadFlag = false;
+		loadCodeAndRes();
+        };
+
+        //设置顶部和底部空白部分的背景
+        function resizeBg() {
+            var w_width = $(window).width();
+            var w_height = $(window).height();
+            var w_rate = w_width / w_height;
+            // $(".bg").hide();
+            if (w_rate >= 0.6) {
+                $(".bg").hide();
+                $(".h5c-loading .loading-bg").height("100%");
+                $(".h5c-loading .loading-bg").width(0.6 * w_height);
+                $(".h5c-loading .loading-bg").css("left", (w_width - 0.6 * w_height) / 2);
+                $(".h5c-loading .whitebg").height("100%");
+
+                $(".bg2").show();
+                var bg2_width = (w_width - w_height * 0.6) / 2;
+                $(".bg2").width(bg2_width);
+
+                if(bg2_width <= 100) {
+                    $('.bg2').css("background-size","auto 100%")
+                }else {
+                    $('.bg2').css("background-size","100% 100%")
+                }
+
+            } else {
+                var bg_height = (w_height - w_width / 0.6) / 2;
+                $(".bg").height(bg_height);
+                $(".bg").show();
+                $(".h5c-loading .loading-bg").width("100%");
+                $(".h5c-loading .loading-bg").height(w_width / 0.6);
+                $(".h5c-loading .loading-bg").css("top", bg_height);
+                $(".h5c-loading .whitebg").height(w_width / 0.6);
+                $(".h5c-loading .whitebg").css("top", bg_height);
+
+                $(".bg2").hide();
+            }
+        }
+        $(window).resize(function() {
+            resizeBg();
+        })
+        // no channel callback
+        window.onload = function() {
+            resizeBg();
+            $(".bg").hide();
+            window.platform = "egret";
+            showFakeBar();
+        };
+        var barNumsArr = [18, 54];
+        var barAnimeInterval;
+        function finishFakeBar() {
+            var barP = document.getElementById('loadingText');
+            var barShow = document.getElementById('loadingBar');
+
+            if (barAnimeInterval) {
+                clearInterval(barAnimeInterval);
+                barAnimeInterval = null;
+            }
+
+            barShow.style.width = 100 + "%";
+            barP.innerText = "加载中... [" + barNumsArr[1] + "/" + barNumsArr[1] + "]";
+        }
+
+        function showFakeBar() {
+            var barP = document.getElementById('loadingText');
+            var barShow = document.getElementById('loadingBar');
+
+            var barIndex = 0;
+            var tempStart = 0;
+
+            barAnimeInterval = setInterval(function() {
+                var addRand = Math.ceil(Math.random() * 3);
+
+                tempStart += addRand;
+
+                var nextWidth = 0;
+
+                if (tempStart >= barNumsArr[barIndex] && barIndex == 0) {
+                    tempStart = 0;
+                    barIndex = 1;
+                    nextWidth = 0;
+                } else {
+                    if (barIndex == 0) {
+                        tempStart = tempStart >= barNumsArr[barIndex] ? barNumsArr[barIndex] : tempStart;
+                        nextWidth = tempStart / barNumsArr[barIndex] * 100;
+                    } else {
+                        tempStart = tempStart >= barNumsArr[barIndex] ? barNumsArr[barIndex] - 2 : tempStart;
+                        nextWidth = tempStart / barNumsArr[barIndex] * 100;
+                    }
+                }
+
+                barShow.style.width = nextWidth + "%";
+                barP.innerText = "加载中... [" + tempStart + "/" + barNumsArr[barIndex] + "]";
+
+                if (tempStart >= (barNumsArr[barIndex] - 3) && barIndex == 1) {
+                    clearInterval(barAnimeInterval);
+                    barAnimeInterval = null;
+                }
+
+            }, 400);
+        }
+
+        function loadScript(list, callback) {
+            var loaded = 0;
+            var loadNext = function() {
+                loadSingleScript(list[loaded], function() {
+                    loaded++;
+                    if (loaded >= list.length) {
+                        callback();
+                    } else {
+                        loadNext();
+                    }
+                });
+            };
+            loadNext();
+        }
+
+        function loadSingleScript(src, callback) {
+            var s = document.createElement('script');
+            s.async = true;
+            var after = project.resRefreshs[(src)];
+            if (after) {
+                src += '?v=' + after;
+            }
+            s.src = src;
+            s.addEventListener('load', function() {
+                // s.parentNode.removeChild(s);
+                s.removeEventListener('load', arguments.callee, false);
+                callback && callback();
+            }, false);
+            document.body.appendChild(s);
+        }
+
+        window.stopLoadProgress = function() {
+            finishFakeBar();
+
+            clearInterval(loadingInterID);
+            clearInterval(progressInterID);
+            loadingUi.parentNode.removeChild(loadingUi);
+            $('.bg').show();
+            $('body').css("background", "#000000");
+        };
+
+        function loadCodeAndRes() {
+            // updateTip();
+            if (loadFlag) {
+                return;
+            }
+            loadFlag = true;
+            //BI  index
+            setCheckPoint(1);
+            var version = window.localStorage && window.localStorage.getItem('ver') || '1.0.0';
+            $.getJSON(root_url + '?ver=' + version, function(manifest) {
+                project = manifest.project;
+                window.localStorage && window.localStorage.setItem('ver', project.version);
+                // var list = manifest.module.concat(manifest.game);
+                var list = manifest.game;
+                if (!window.Worker) {
+                    list = list.concat(["libs/modules/worker/socket.io.js", "libs/modules/worker/wsclient.inner.js"]);
+                }
+
+                //BI 开始加载
+                setCheckPoint(2);
+
+                loadScript(list, function() {
+                    manifest.project.channelId = channel.id;
+                    egret.project.config = manifest.project;
+                    egret.project.version = manifest.project.version;
+                    egret.project.channelId = channel.id;
+                    egret.project.resRefreshs = manifest.project.resRefreshs || {};
+                    egret.project.firstDownloads = manifest.project.firstDownloads || [];
+                    egret.project.bi_url2 = channel.bi_url2;
+                    egret.project.log_url = channel.log_url;
+
+                    g_consts.TOP_BUTTON_DIR = 0;
+
+                    var opt = ZmSdk.getInstance().getUserInfo();
+                    if(opt.common.sdkindx == "10641"){
+                        window.noVoice = true;
+                    }
+                    runGame();
+                });
+            }).fail(function(){
+                // console.log('get manifest error');
+                loadFlag=false;
+                clearInterval(loadingInterID);
+                setTimeout(function(){
+                    loadCodeAndRes();
+                },1000);
+                
+            });
+        }
+
+
+        function runGame() {
+            window.FyqstAudioPolicy.install();
+            
+            var csf = 1;
+            var lcsfIndex = window.localStorage && window.localStorage.getItem("performance2") * 1;
+            lcsfIndex = lcsfIndex || 2;
+            var pa = [.5, .5, .9, 1.2];
+            csf = pa[lcsfIndex] * window.devicePixelRatio;
+            egret.runEgret({
+                renderMode: "webgl",
+                antialias: false,
+                audioType: 2,
+                canvasScaleFactor: csf
+            });
+        }
+
+        document.getElementById('a_refresh').onclick = function() {
+            // mo.reload();
+            location.reload();
+        };
+    })();
+    </script>
+</body>
+
+</html>

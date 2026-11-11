@@ -1,0 +1,14 @@
+diff --git a/lib/namespace.js b/lib/namespace.js
+index 0b0657ba8cbb467d153d7c0cb9b1e0efd57af273..6ece71ce62b4130fff5202d5fcb85730dc6d7a91 100644
+--- a/lib/namespace.js
++++ b/lib/namespace.js
+@@ -99,7 +99,8 @@ Namespace.prototype.initAdapter = function(){
+  */
+ 
+ Namespace.prototype.use = function(fn){
+-  if (this.server.eio) {
++  // Only root middleware changes the CONNECT packet in the initial handshake.
++  if (this.name === '/' && this.server.eio) {
+     debug('removing initial packet');
+     delete this.server.eio.initialPacket;
+   }

@@ -1,0 +1,207 @@
+{
+  "appenders": [
+    {
+      "type": "console"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-logger/uw-logger",
+      "maxLogSize": 1048576,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+        "type": "basic"
+      },
+      "backups": 5,
+      "category": "uw-logger"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-sys-error/uw-sys-error",
+      "maxLogSize": 1048576,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+        "type": "basic"
+      },
+      "backups": 5,
+      "category": "uw-sys-error"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-pay/uw-pay",
+      "maxLogSize": 1048576,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+        "type": "basic"
+      },
+      "backups": 5,
+      "category": "uw-pay"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-route/uw-route",
+      "maxLogSize": 1048576,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+        "type": "basic"
+      },
+      "backups": 5,
+      "category": "uw-route"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-monitor/uw-monitor-request",
+      "maxLogSize": 1048576,
+      "pattern": "_yyyy-MM-dd-hh-mm.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+        "type": "messagePassThrough"
+      },
+      "backups": 5,
+      "category": "uw-monitor-request"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-monitor/uw-monitor-send",
+      "maxLogSize": 1048576,
+      "pattern": "_yyyy-MM-dd-hh-mm.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+       "type": "messagePassThrough"
+      },
+      "backups": 5,
+      "category": "uw-monitor-send"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-bi/uw-bi-wing",
+      "maxLogSize": 10737418240,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+       "type": "messagePassThrough"
+      },
+      "backups": 5,
+      "category": "uw-bi-wing"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-bi/uw-bi-realm",
+      "maxLogSize": 10737418240,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+       "type": "messagePassThrough"
+      },
+      "backups": 5,
+      "category": "uw-bi-realm"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-bi/uw-bi-boss",
+      "maxLogSize": 10737418240,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+       "type": "messagePassThrough"
+      },
+      "backups": 5,
+      "category": "uw-bi-boss"
+    },
+    {
+      "type": "dateFile",
+      "filename": "${basePath}/workId/uw-bi/uw-bi-upStarStone",
+      "maxLogSize": 10737418240,
+      "pattern": "_yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "layout": {
+       "type": "messagePassThrough"
+      },
+      "backups": 5,
+      "category": "uw-bi-upStarStone"
+    },
+    {
+          "type": "dateFile",
+          "filename": "${basePath}/workId/uw-bi/uw-bi-mysterShop",
+          "maxLogSize": 10737418240,
+          "pattern": "_yyyy-MM-dd.log",
+          "alwaysIncludePattern": true,
+          "layout": {
+           "type": "messagePassThrough"
+          },
+          "backups": 5,
+          "category": "uw-bi-mysterShop"
+    },
+     {
+              "type": "dateFile",
+              "filename": "${basePath}/workId/uw-bi/uw-bi-callBoss",
+              "maxLogSize": 10737418240,
+              "pattern": "_yyyy-MM-dd.log",
+              "alwaysIncludePattern": true,
+              "layout": {
+               "type": "messagePassThrough"
+              },
+              "backups": 5,
+              "category": "uw-bi-callBoss"
+     },
+      {
+                  "type": "dateFile",
+                  "filename": "${basePath}/workId/uw-bi/uw-bi-lottery",
+                  "maxLogSize": 10737418240,
+                  "pattern": "_yyyy-MM-dd.log",
+                  "alwaysIncludePattern": true,
+                  "layout": {
+                   "type": "messagePassThrough"
+                  },
+                  "backups": 5,
+                  "category": "uw-bi-lottery"
+      },
+    {
+          "type": "dateFile",
+          "filename": "${basePath}/workId/uw-worker/uw-worker",
+          "maxLogSize": 10737418240,
+          "pattern": "_yyyy-MM-dd.log",
+          "alwaysIncludePattern": true,
+          "layout": {
+           "type": "messagePassThrough"
+          },
+          "backups": 5,
+          "category": "uw-worker"
+        },
+               {
+                           "type": "dateFile",
+                           "filename": "${basePath}/workId/uw-bi/uw-bi-genuineQi",
+                           "maxLogSize": 10737418240,
+                           "pattern": "_yyyy-MM-dd.log",
+                           "alwaysIncludePattern": true,
+                           "layout": {
+                            "type": "messagePassThrough"
+                           },
+                           "backups": 5,
+                           "category": "uw-bi-genuineQi"
+               }
+  ],
+  "levels": {
+    "console": "${levels}",
+    "uw-logger":"${levels}",
+    "uw-sys-error": "${levels}",
+    "uw-pay": "INFO",
+    "uw-route":"${levels}",
+    "uw-worker":"${levels}",
+    "uw-monitor-request":"INFO",
+    "uw-monitor-send":"INFO",
+    "uw-bi-wing":"INFO",
+    "uw-bi-realm":"INFO",
+    "uw-bi-boss":"INFO",
+    "uw-bi-upStarStone":"INFO",
+    "uw-bi-mysterShop":"INFO",
+    "uw-bi-callBoss":"INFO",
+    "uw-bi-lottery":"INFO",
+    "uw-bi-genuineQi":"INFO"
+  },
+  "replaceConsole": true,
+  "lineDebug": false
+}

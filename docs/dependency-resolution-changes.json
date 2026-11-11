@@ -1,0 +1,331 @@
+{
+  "note": "Installed third-party package version sets for s1 (including hoisted packages), excluding tests/examples and local uw-* directories regardless of manifest name. Differences are transitive additions or resolutions; all 84 direct versions remain pinned.",
+  "changes": [
+    {
+      "name": "async",
+      "original": [
+        "0.1.15",
+        "0.1.22",
+        "0.2.10",
+        "0.2.5",
+        "2.0.1"
+      ],
+      "locked": [
+        "0.1.15",
+        "0.2.10",
+        "0.2.5",
+        "2.0.1"
+      ]
+    },
+    {
+      "name": "bignumber.js",
+      "original": [
+        "2.3.0",
+        "4.1.0"
+      ],
+      "locked": [
+        "4.1.0"
+      ]
+    },
+    {
+      "name": "body-parser",
+      "original": [
+        "1.15.2",
+        "1.18.2"
+      ],
+      "locked": [
+        "1.15.2"
+      ]
+    },
+    {
+      "name": "content-type",
+      "original": [
+        "1.0.2"
+      ],
+      "locked": [
+        "1.0.5"
+      ]
+    },
+    {
+      "name": "depd",
+      "original": [
+        "1.1.0"
+      ],
+      "locked": [
+        "1.1.2"
+      ]
+    },
+    {
+      "name": "encodeurl",
+      "original": [
+        "1.0.1"
+      ],
+      "locked": [
+        "1.0.2"
+      ]
+    },
+    {
+      "name": "forwarded",
+      "original": [
+        "0.1.0"
+      ],
+      "locked": [
+        "0.1.2"
+      ]
+    },
+    {
+      "name": "http-errors",
+      "original": [
+        "1.5.0"
+      ],
+      "locked": [
+        "1.5.1"
+      ]
+    },
+    {
+      "name": "inherits",
+      "original": [
+        "2.0.1",
+        "2.0.3"
+      ],
+      "locked": [
+        "2.0.3"
+      ]
+    },
+    {
+      "name": "ipaddr.js",
+      "original": [
+        "1.1.1"
+      ],
+      "locked": [
+        "1.4.0"
+      ]
+    },
+    {
+      "name": "isarray",
+      "original": [
+        "0.0.1",
+        "1.0.0"
+      ],
+      "locked": [
+        "0.0.1",
+        "1.0.0",
+        "2.0.1"
+      ]
+    },
+    {
+      "name": "lodash",
+      "original": [
+        "4.15.0"
+      ],
+      "locked": [
+        "4.18.1"
+      ]
+    },
+    {
+      "name": "mime-db",
+      "original": [
+        "1.23.0",
+        "1.33.0",
+        "1.35.0"
+      ],
+      "locked": [
+        "1.35.0",
+        "1.52.0"
+      ]
+    },
+    {
+      "name": "mime-types",
+      "original": [
+        "2.1.11",
+        "2.1.18",
+        "2.1.19"
+      ],
+      "locked": [
+        "2.1.19",
+        "2.1.35"
+      ]
+    },
+    {
+      "name": "moment",
+      "original": [
+        "2.14.1"
+      ],
+      "locked": [
+        "2.31.0"
+      ]
+    },
+    {
+      "name": "ms",
+      "original": [
+        "0.7.1",
+        "2.0.0"
+      ],
+      "locked": [
+        "0.7.1",
+        "0.7.2",
+        "2.0.0"
+      ]
+    },
+    {
+      "name": "mysql",
+      "original": [
+        "2.11.1",
+        "2.16.0"
+      ],
+      "locked": [
+        "2.16.0"
+      ]
+    },
+    {
+      "name": "node-bignumber",
+      "original": [
+        "1.2.1"
+      ],
+      "locked": [
+        "v1.2.1"
+      ]
+    },
+    {
+      "name": "parseurl",
+      "original": [
+        "1.3.1"
+      ],
+      "locked": [
+        "1.3.3"
+      ]
+    },
+    {
+      "name": "proxy-addr",
+      "original": [
+        "1.1.2"
+      ],
+      "locked": [
+        "1.1.5"
+      ]
+    },
+    {
+      "name": "range-parser",
+      "original": [
+        "1.2.0"
+      ],
+      "locked": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "readable-stream",
+      "original": [
+        "1.0.34",
+        "1.1.14",
+        "2.3.6"
+      ],
+      "locked": [
+        "1.0.34",
+        "2.3.6"
+      ]
+    },
+    {
+      "name": "redis-commands",
+      "original": [
+        "1.2.0"
+      ],
+      "locked": [
+        "1.7.0"
+      ]
+    },
+    {
+      "name": "redis-parser",
+      "original": [
+        "2.0.4"
+      ],
+      "locked": [
+        "2.6.0"
+      ]
+    },
+    {
+      "name": "send",
+      "original": [
+        "0.14.1"
+      ],
+      "locked": [
+        "0.14.1",
+        "0.14.2"
+      ]
+    },
+    {
+      "name": "serve-static",
+      "original": [
+        "1.11.1"
+      ],
+      "locked": [
+        "1.11.2"
+      ]
+    },
+    {
+      "name": "setprototypeof",
+      "original": [
+        "1.0.1"
+      ],
+      "locked": [
+        "1.0.2"
+      ]
+    },
+    {
+      "name": "sqlstring",
+      "original": [
+        "2.0.1",
+        "2.3.1"
+      ],
+      "locked": [
+        "2.3.1"
+      ]
+    },
+    {
+      "name": "stack-trace",
+      "original": [
+        "0.0.9"
+      ],
+      "locked": [
+        "0.0.10"
+      ]
+    },
+    {
+      "name": "statuses",
+      "original": [
+        "1.3.0"
+      ],
+      "locked": [
+        "1.3.1"
+      ]
+    },
+    {
+      "name": "type-is",
+      "original": [
+        "1.6.13"
+      ],
+      "locked": [
+        "1.6.18"
+      ]
+    },
+    {
+      "name": "utf-8-validate",
+      "original": [
+        "1.2.1"
+      ],
+      "locked": [
+        "1.2.2"
+      ]
+    },
+    {
+      "name": "vary",
+      "original": [
+        "1.1.0",
+        "1.1.2"
+      ],
+      "locked": [
+        "1.1.2"
+      ]
+    }
+  ]
+}

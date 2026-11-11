@@ -1,0 +1,41 @@
+{
+    "module": [
+        "libs/modules/engine.min.js"
+    ],
+    "game": [
+        "libs/modules/game.min.js"
+    ],
+    "project":
+    {
+        "version": "1.0",
+        "package": "com.mmobay",
+        "projName": "ttf",
+        "appName": "ttf",
+        "channelId": 99999,
+        "httpHost": "127.0.0.1",
+        "httpPort": 5005,
+        "resLimit": 100,
+        "guideEnabled": true,
+        "resRefreshs":
+        {},
+        "firstCopys": [
+        {
+            "cid": 3
+        },
+        {
+            "cid": 4
+        },
+        {
+            "cid": 2000,
+            "bid": 800001
+        },
+        {
+            "cid": 3000,
+            "bid": 400006
+        }],
+        "firstDownload": [
+         
+        ]
+    }
+
+}

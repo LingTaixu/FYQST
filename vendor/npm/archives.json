@@ -1,0 +1,59 @@
+[
+  {
+    "name": "logger",
+    "version": "0.1.0",
+    "file": "vendor/npm/logger-0.1.0.tgz",
+    "sha256": "eb7ea68f879158732f17d52957d72320f2de389a4f32c97ee5268ac76937ba17",
+    "bytes": 559,
+    "reason": "Unpublished standalone internal dependency bundled by cmdjs@0.0.14"
+  },
+  {
+    "name": "str-utils",
+    "version": "0.1.0",
+    "file": "vendor/npm/str-utils-0.1.0.tgz",
+    "sha256": "2edd3a410c78adc1d005d926382768010f1fe1d84626ccdb7c470450d70b5bb6",
+    "bytes": 2340,
+    "reason": "Unpublished standalone internal dependency bundled by cmdjs@0.0.14"
+  },
+  {
+    "name": "uwa-middleware",
+    "version": "unversioned",
+    "variant": "uw-monitor-http",
+    "file": "vendor/npm/uwa-middleware-uw-monitor-http.tgz",
+    "sha256": "a634c5165076e9b873d3cb983c9b44bfe772121ddd882be7704da68f62260dac",
+    "bytes": 671,
+    "sources": [
+      "Server/s1/packages/uw-monitor-http/lib/uwa-middleware",
+      "Server/uc/packages/uw-monitor-http/lib/uwa-middleware"
+    ],
+    "reason": "Original nested internal module has no package.json; npm registry returned 404; preserved as relative local source."
+  },
+  {
+    "name": "uwa-tools",
+    "version": "unversioned",
+    "variant": "unversioned",
+    "file": "vendor/npm/uwa-tools-unversioned.tgz",
+    "sha256": "98c0bffb80cd11eee92aa2acaad13c0d700f1ce5c097c05e6ffd0311426f703a",
+    "bytes": 1152,
+    "sources": [
+      "Server/s1/packages/uw-monitor-http/lib/uwa-tools",
+      "Server/s1/packages/uw-view-http/lib/uwa-tools",
+      "Server/uc/packages/uw-monitor-http/lib/uwa-tools",
+      "Server/uc/packages/uw-view-http/lib/uwa-tools"
+    ],
+    "reason": "Original nested internal module has no package.json; npm registry returned 404; preserved as relative local source."
+  },
+  {
+    "name": "uwa-middleware",
+    "version": "unversioned",
+    "variant": "uw-view-http",
+    "file": "vendor/npm/uwa-middleware-uw-view-http.tgz",
+    "sha256": "4b8953dd5a770ffe15d6ea90f93812adf76c30d3df773665c340269e317a6a8d",
+    "bytes": 708,
+    "sources": [
+      "Server/s1/packages/uw-view-http/lib/uwa-middleware",
+      "Server/uc/packages/uw-view-http/lib/uwa-middleware"
+    ],
+    "reason": "Original nested internal module has no package.json; npm registry returned 404; preserved as relative local source."
+  }
+]

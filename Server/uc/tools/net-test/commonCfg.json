@@ -1,0 +1,10 @@
+{
+  "mainHost1":"101.227.80.116",
+  "mainPort1":"44001",
+  "serverHost1":"101.227.80.116",
+  "serverPort1":"44103",
+  "mainHost":"192.168.28.231",
+  "mainPort":"5005",
+  "serverHost":"192.168.28.231",
+  "serverPort":"24200"
+}

@@ -1,0 +1,19 @@
+module.exports = {
+    "1" : {id:1,name:'第1名',range:1,gold:100000,diamond:0,starStone:500,items:[[11410,1]]},
+    "2" : {id:2,name:'第2名',range:2,gold:70000,diamond:0,starStone:260},
+    "3" : {id:3,name:'第3名',range:3,gold:50000,diamond:0,starStone:160},
+    "4" : {id:4,name:'第4名',range:4,gold:20000,diamond:0,starStone:100},
+    "5" : {id:5,name:'第5名',range:5,gold:15000,diamond:0,starStone:65},
+    "6" : {id:6,name:'第6名',range:6,gold:10000,diamond:0,starStone:40},
+    "7" : {id:7,name:'第7名',range:7,gold:8500,diamond:0,starStone:35},
+    "8" : {id:8,name:'第8名',range:8,gold:7500,diamond:0,starStone:30},
+    "9" : {id:9,name:'第9名',range:9,gold:6000,diamond:0,starStone:25},
+    "10" : {id:10,name:'第10名',range:10,gold:5000,diamond:0,starStone:20},
+    "11" : {id:11,name:'第11名',range:11,gold:4000,diamond:0,starStone:15},
+    "12" : {id:12,name:'12-51名',range:51,gold:3500,diamond:0,starStone:10},
+    "13" : {id:13,name:'52-101名',range:101,gold:3000,diamond:0,starStone:5},
+    "14" : {id:14,name:'102-201名',range:201,gold:2500,diamond:0,starStone:3},
+    "15" : {id:15,name:'202-301名',range:301,gold:2000,diamond:0,starStone:3},
+    "16" : {id:16,name:'302-401名',range:401,gold:1500,diamond:0,starStone:3},
+    "17" : {id:17,name:'402-100001名',range:100001,gold:1000,diamond:0,starStone:2}
+};

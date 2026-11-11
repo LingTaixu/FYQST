@@ -1,0 +1,6 @@
+[install]
+registry = "https://registry.npmjs.org"
+linker = "hoisted"
+exact = true
+auto = "disable"
+saveTextLockfile = true

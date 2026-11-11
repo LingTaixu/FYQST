@@ -1,0 +1,34 @@
+{
+    "module": ["libs/modules/engine.min.js"],
+    "game": ["libs/modules/game1.min.js", "libs/modules/game2.min.js", "libs/modules/game3.min.js"],
+    "project":
+    {
+        "version": "1.7.7",
+        "package": "com.mmobay",
+        "projName": "ttf",
+        "appName": "ttf",
+        "channelId": 99999,
+        "httpHost": "127.0.0.1",
+        "httpPort": "24000",
+        "resLimit": 100,
+        "guideEnabled": true,
+        "resRefreshs":
+        {
+           
+            "resource/ui2/ui_num/num_20.fnt": "1.7.7",
+            "resource/ui2/ui_num/num_20.png": "1.7.7",
+            "resource/ui2/ui_num/num_21.fnt": "1.7.7",
+            "resource/ui2/ui_num/num_21.png": "1.7.7",
+            "resource/ui2/ui_num/num_22.fnt": "1.7.7",
+            "resource/ui2/ui_num/num_22.png": "1.7.7",
+            "resource/ui2/ui_num/num_24.fnt": "1.7.7",
+            "resource/ui2/ui_num/num_24.png": "1.7.7",
+            "resource/ui2/ui_num/num_26.fnt": "1.7.7",
+            "resource/ui2/ui_num/num_26.png": "1.7.7"
+        },
+        "preloads":
+        {},
+        "unloads": [],
+        "firstDownloads": ["num_2", "num_22", "num_21", "num_20", "num_26", "dynamic2/ico_gold_2.png", "sound/login3.mp3", "music/battle5.mp3", "r101", "r1", "bg_forge", "ui_9grid.grp", "ui_activity1.grp", "ui_activity2.grp", "ui_activity3.grp", "ui_common1.grp", "ui_common10.grp", "ui_common11.grp", "ui_common12.grp", "ui_common2.grp", "ui_common3.grp", "ui_common4.grp", "ui_common5.grp", "ui_common6.grp", "ui_common7.grp", "ui_common8.grp", "ui_common9.grp", "ui_guild.grp", "ui_index.grp"]
+    }
+}

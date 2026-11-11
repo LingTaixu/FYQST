@@ -1,0 +1,6 @@
+[mariadb]
+# Legacy code mixes camelCase table names with lowercase dump names.
+lower_case_table_names = 1
+# MySQL 5.x data contains zero dates and fields without explicit defaults.
+sql_mode = NO_ENGINE_SUBSTITUTION
+bind-address = 127.0.0.1

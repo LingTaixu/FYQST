@@ -1,0 +1,62 @@
+{
+    "module": ["libs/modules/engine.min.js"],
+    "game": ["libs/modules/game1.min.js", "libs/modules/game2.min.js", "libs/modules/game3.min.js"],
+    "project":
+    {
+        "version": "1.7.0",
+        "package": "com.mmobay",
+        "projName": "ttf",
+        "appName": "ttf",
+        "channelId": 99999,
+        "httpHost": "127.0.0.1",
+        "httpPort": "24000",
+        "resLimit": 100,
+        "guideEnabled": true,
+        "resRefreshs":
+        {
+           
+            "libs/modules/game2.min.js": "1.7.0",
+            "resource/default.res.json": "1.7.0",
+            "resource/ui2/pack/ui_activity3.png": "1.7.0",
+            "resource/ui2/pack/ui_activity3.json": "1.7.0",
+            "resource/ui2/pack/ui_activity2.png": "1.7.0",
+            "resource/ui2/pack/ui_activity2.json": "1.7.0",
+            "resource/ui2/pack/ui_activity1.png": "1.7.0",
+            "resource/ui2/pack/ui_activity1.json": "1.7.0",
+            "resource/ui2/pack/ui_9grid.png": "1.7.0",
+            "resource/ui2/pack/ui_9grid.json": "1.7.0",
+            "resource/ui2/pack/ui_guild.png": "1.7.0",
+            "resource/ui2/pack/ui_guild.json": "1.7.0",
+            "resource/ui2/pack/ui_index.png": "1.7.0",
+            "resource/ui2/pack/ui_index.json": "1.7.0",
+            "resource/ui2/pack/ui_common1.json": "1.7.0",
+            "resource/ui2/pack/ui_common1.png": "1.7.0",
+            "resource/ui2/pack/ui_common2.json": "1.7.0",
+            "resource/ui2/pack/ui_common2.png": "1.7.0",
+            "resource/ui2/pack/ui_common3.json": "1.7.0",
+            "resource/ui2/pack/ui_common3.png": "1.7.0",
+            "resource/ui2/pack/ui_common4.json": "1.7.0",
+            "resource/ui2/pack/ui_common4.png": "1.7.0",
+            "resource/ui2/pack/ui_common6.json": "1.7.0",
+            "resource/ui2/pack/ui_common6.png": "1.7.0",
+            "resource/ui2/pack/ui_common7.json": "1.7.0",
+            "resource/ui2/pack/ui_common7.png": "1.7.0",
+            "resource/ui2/pack/ui_common8.json": "1.7.0",
+            "resource/ui2/pack/ui_common8.png": "1.7.0",
+            "resource/ui2/pack/ui_common9.json": "1.7.0",
+            "resource/ui2/pack/ui_common9.png": "1.7.0",
+            "resource/ui2/pack/ui_common10.json": "1.7.0",
+            "resource/ui2/pack/ui_common10.png": "1.7.0",
+            "resource/ui2/pack/ui_common11.json": "1.7.0",
+            "resource/ui2/pack/ui_common11.png": "1.7.0",
+            "resource/ui2/pack/ui_common12.json": "1.7.0",
+            "resource/ui2/pack/ui_common12.png": "1.7.0",
+            "resource/ui2/pack/ui_common5.json": "1.7.0",
+            "resource/ui2/pack/ui_common5.png": "1.7.0"
+        },
+        "preloads":
+        {},
+        "unloads": [],
+        "firstDownloads": ["num_2", "num_22", "num_21", "num_20", "num_26", "dynamic2/ico_gold_2.png", "sound/login3.mp3", "music/battle5.mp3", "r101", "r1", "bg_forge", "ui_9grid.grp", "ui_activity1.grp", "ui_activity2.grp", "ui_activity3.grp", "ui_common1.grp", "ui_common10.grp", "ui_common11.grp", "ui_common12.grp", "ui_common2.grp", "ui_common3.grp", "ui_common4.grp", "ui_common5.grp", "ui_common6.grp", "ui_common7.grp", "ui_common8.grp", "ui_common9.grp", "ui_guild.grp", "ui_index.grp"]
+    }
+}

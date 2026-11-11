@@ -1,0 +1,14 @@
+{"file":"num_25.png","frames":{
+"0":{"x":91,"y":0,"w":25,"h":32,"offX":0,"offY":0,"sourceW":25,"sourceH":32},
+"1":{"x":0,"y":69,"w":20,"h":32,"offX":0,"offY":0,"sourceW":20,"sourceH":32},
+"2":{"x":27,"y":68,"w":25,"h":32,"offX":0,"offY":0,"sourceW":25,"sourceH":32},
+"3":{"x":35,"y":34,"w":25,"h":32,"offX":0,"offY":0,"sourceW":25,"sourceH":32},
+"4":{"x":35,"y":0,"w":27,"h":32,"offX":0,"offY":0,"sourceW":27,"sourceH":32},
+"5":{"x":0,"y":35,"w":25,"h":32,"offX":0,"offY":0,"sourceW":25,"sourceH":32},
+"6":{"x":64,"y":0,"w":25,"h":32,"offX":0,"offY":0,"sourceW":25,"sourceH":32},
+"7":{"x":54,"y":68,"w":24,"h":31,"offX":0,"offY":0,"sourceW":24,"sourceH":31},
+"8":{"x":89,"y":34,"w":25,"h":32,"offX":0,"offY":0,"sourceW":25,"sourceH":32},
+"9":{"x":62,"y":34,"w":25,"h":32,"offX":0,"offY":0,"sourceW":25,"sourceH":32},
+"级":{"x":0,"y":0,"w":33,"h":33,"offX":0,"offY":0,"sourceW":33,"sourceH":33},
+"连":{"x":80,"y":68,"w":27,"h":26,"offX":0,"offY":0,"sourceW":27,"sourceH":26},
+"升":{"x":80,"y":96,"w":26,"h":27,"offX":0,"offY":0,"sourceW":26,"sourceH":27}}}

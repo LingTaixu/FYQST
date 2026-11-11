@@ -1,0 +1,9 @@
+{
+  "host":"192.168.1.222",
+  "port":"8010",
+  "mainHttpPort":"5007",
+  "serverHttpPort":"24202",
+  "clientPath":"F:/work/chuanqi_demo/client",
+  "serverPath":"F:/work/chuanqi_demo/server",
+  "toolsPath":"F:/work/chuanqi_demo/tools"
+}

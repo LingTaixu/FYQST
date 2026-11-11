@@ -1,0 +1,51 @@
+{
+  "uwCnn": {
+    "name": "uwCnn",
+    "dbModule": "mysql",
+    "host": "${uwCnn_host}",
+    "port": "${uwCnn_port}",
+    "user": "${uwCnn_user}",
+    "password": "${uwCnn_password}",
+    "database": "${uwCnn_database}",
+    "debug": [
+      "ComQueryPacket"
+    ]
+  },
+  "mainCnn": {
+    "name": "mainCnn",
+    "dbModule": "mysql",
+    "host":  "${mainCnn_host}",
+    "port":  "${mainCnn_port}",
+    "user":  "${mainCnn_user}",
+    "password": "${mainCnn_password}",
+    "database":  "${mainCnn_database}",
+    "debug": [
+      "ComQueryPacket"
+    ]
+  },
+  "kefuCnn": {
+    "name": "kefuCnn",
+    "dbModule": "mysql",
+    "host":  "${kefuCnn_host}",
+    "port":  "${kefuCnn_port}",
+    "user":  "${kefuCnn_user}",
+    "password": "${kefuCnn_password}",
+    "database":  "${kefuCnn_database}",
+    "debug": [
+      "ComQueryPacket"
+    ],
+    "maxCnnNum":20
+  },
+  "loginCnn": {
+      "name": "loginCnn",
+      "dbModule": "mysql",
+      "host":  "${loginCnn_host}",
+      "port":  "${loginCnn_port}",
+      "user":  "${loginCnn_user}",
+      "password": "${loginCnn_password}",
+      "database":  "${loginCnn_database}",
+      "debug": [
+        "ComQueryPacket"
+      ]
+    }
+}

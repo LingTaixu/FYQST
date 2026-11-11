@@ -1,0 +1,16 @@
+diff --git a/lib/transports/websocket.js b/lib/transports/websocket.js
+index 7d5511b1d61f8b0f530b5295290cf93c95c832b5..70456697152739605ae13f855aaa1bd47dff9d28 100644
+--- a/lib/transports/websocket.js
++++ b/lib/transports/websocket.js
+@@ -74,7 +74,10 @@ WebSocket.prototype.supportsFraming = true;
+  * @api private
+  */
+ 
+-WebSocket.prototype.onData = function (data) {
++WebSocket.prototype.onData = function (data, isBinary) {
++  // Bun's ws adapter returns a Buffer for text frames, with isBinary=false.
++  // Engine.IO 3 distinguishes text packets from binary packets by JS type.
++  if (isBinary === false && Buffer.isBuffer(data)) data = data.toString('utf8');
+   debug('received "%s"', data);
+   Transport.prototype.onData.call(this, data);
+ };

@@ -1,0 +1,23 @@
+.local/
+**/node_modules/
+**/logs/
+**/startlog/
+*.log
+*.pid
+.DS_Store
+._*
+desktop.ini
+.idea/
+.vscode/
+**/compiled/
+www/wwwroot/www/vp000/data/cache/
+**/*.key
+**/*.pfx
+**/payPri.pem
+.env
+.env.*
+!.env.example
+# Audio is disabled; keep the original local assets out of GitHub uploads.
+*.mp3
+# Legacy Windows Node runtime is not needed by the WSL Bun backend.
+/Server/node.exe

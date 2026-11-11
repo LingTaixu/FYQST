@@ -1,0 +1,4 @@
+*.sh text eol=lf
+*.patch text eol=lf
+bun.lock text eol=lf
+*.tgz binary

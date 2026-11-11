@@ -1,0 +1,5 @@
+userid,clientid,source,affiliate,creative,family,genus,ip,from_uid,date,time,extra,udid,roleid
+awy_abc123b,10001,,,awy,,,0.0.0.0,,2018-05-26,16:18:16,,,1010893
+awy_abc1233,10001,,,awy,,,127.0.0.1,,2018-05-26,16:18:43,browser_name:Chrome;os_name:Other_0.0.0_Mac_OS_X_10.13.1;brower_version:66.0.3359,,1010894
+awy_cac121,10001,,,awy,,,0.0.0.0,,2018-05-26,21:06:42,,,1010895
+awy_cac115,10001,,,awy,,,0.0.0.0,,2018-05-26,21:08:35,,,1010896
