@@ -4,9 +4,9 @@ ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 RUN="$ROOT/.local/run"
 LOG="$ROOT/Server/startlog"
 mkdir -p "$RUN" "$LOG"
-APP_NAMES=(logApp mainApp versionApp viewApp serverApp cityserver battleserver web)
-APP_DIRS=(s1 uc uc uc s1 s1/wserver s1/battleserver ../www/wwwroot/www)
-APP_PORTS=(7000 9901 9902 9903 20001 10001 9001 8080)
+APP_NAMES=(logApp mainApp versionApp viewApp serverApp cityserver battleserver adminApi web)
+APP_DIRS=(s1 uc uc uc s1 s1/wserver s1/battleserver ../admin/api ../www/wwwroot/www)
+APP_PORTS=(7000 9901 9902 9903 20001 10001 9001 8090 8080)
 
 ensure_unit() {
     local unit_dir="$HOME/.config/systemd/user" unit bun_env
@@ -29,6 +29,7 @@ Environment="BUN_BIN=$bun_env"
 ExecStart=/usr/bin/bash "$ROOT/scripts/local.sh" start
 ExecStop=/usr/bin/bash "$ROOT/scripts/local.sh" stop
 ExecStopPost=/usr/bin/bash "$ROOT/scripts/local.sh" stop
+ExecReload=/usr/bin/bash "$ROOT/scripts/local.sh" restart-admin
 TimeoutStartSec=300
 TimeoutStopSec=60
 KillMode=control-group
@@ -59,6 +60,7 @@ is_running() {
     entry=$(tr '\0' ' ' < "/proc/$pid/cmdline")
     expected="$name.js"
     [[ "$name" == web ]] && expected="$ROOT/scripts/router.php"
+    [[ "$name" == adminApi ]] && expected="src/server.ts"
     [[ "$entry" == *"$expected"* ]]
 }
 
@@ -74,6 +76,9 @@ PY
 
 start() {
     load_runtime
+    if [[ ! -f "$ROOT/admin/web/dist/index.html" ]]; then
+        (cd "$ROOT" && "$BUN_BIN" scripts/admin-build.ts)
+    fi
     command -v php >/dev/null
     php -r 'exit(extension_loaded("mysqli") ? 0 : 1);'
     mariadb-admin --protocol=tcp -h127.0.0.1 -ufyqst -ppwd123456 ping >/dev/null 2>&1 || {
@@ -97,6 +102,8 @@ start() {
         fi
         if [[ "$name" == web ]]; then
             (cd "$dir" && exec nohup php -d display_errors=0 -d log_errors=1 -d error_reporting=22527 -S 127.0.0.1:8080 -t "$dir" "$ROOT/scripts/router.php") > "$LOG/$name.log" 2>&1 < /dev/null &
+        elif [[ "$name" == adminApi ]]; then
+            (cd "$dir" && exec nohup "$BUN_BIN" src/server.ts) > "$LOG/$name.log" 2>&1 < /dev/null &
         else
             (cd "$dir" && exec nohup "$BUN_BIN" "$name.js") > "$LOG/$name.log" 2>&1 < /dev/null &
         fi
@@ -155,9 +162,24 @@ status() {
     done
 }
 
+restart_admin() {
+    # ExecReload keeps the new API process in the existing systemd cgroup.
+    local -a APP_NAMES=(adminApi)
+    local -a APP_DIRS=(../admin/api)
+    local -a APP_PORTS=(8090)
+    stop
+    start
+}
+
 # Let the WSL user service own the processes so terminal exit cannot reap them.
 if [[ "${FYQST_SYSTEMD:-0}" != 1 ]]; then
     case "${1:-start}" in
+        restart-admin)
+            load_runtime
+            ensure_unit
+            systemctl --user reload fyqst-local.service
+            status
+            exit ;;
         start|restart)
             load_runtime
             ensure_unit
@@ -180,5 +202,6 @@ case "${1:-start}" in
     stop) stop ;;
     restart) stop; start ;;
     status) status ;;
-    *) echo '用法：bash scripts/local.sh {start|stop|restart|status}' >&2; exit 1 ;;
+    restart-admin) restart_admin ;;
+    *) echo '用法：bash scripts/local.sh {start|stop|restart|restart-admin|status}' >&2; exit 1 ;;
 esac

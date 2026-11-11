@@ -2,7 +2,7 @@
   "name": "fyqst-local",
   "version": "1.0.0",
   "private": true,
-  "description": "WSL Bun game backend and local PHP website",
+  "description": "WSL Bun 游戏服务与 React / TypeScript 运营后台",
   "packageManager": "bun@1.4.4",
   "engines": {
     "bun": ">=1.4.4"
@@ -16,11 +16,20 @@
     "content:audit": "bun scripts/content-source.cjs --check && bun scripts/content-db.cjs --check",
     "content:clean": "bun scripts/content-source.cjs --apply && bun scripts/content-db.cjs --apply",
     "postinstall": "bun scripts/deps-restore.cjs",
-    "deps:check": "bun scripts/deps-restore.cjs --check"
+    "deps:check": "bun scripts/deps-restore.cjs --check",
+    "admin:dev": "bun run --cwd admin/api dev",
+    "admin:restart": "bash scripts/local.sh restart-admin",
+    "admin:web": "bun run --cwd admin/web dev",
+    "admin:build": "bun scripts/admin-build.ts",
+    "admin:check": "bun run --cwd admin/api typecheck && bun run --cwd admin/web typecheck",
+    "admin:test": "bun test admin/api/test",
+    "admin:user": "bun run --cwd admin/api user"
   },
   "workspaces": [
     "Server/s1",
-    "Server/uc"
+    "Server/uc",
+    "admin/api",
+    "admin/web"
   ],
   "trustedDependencies": [],
   "patchedDependencies": {

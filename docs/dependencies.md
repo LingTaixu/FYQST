@@ -68,4 +68,15 @@ bun run start
 
 2026-11-11 最终结果：独立目录从零执行 `bun install --frozen-lockfile` 成功；隔离安装和实际项目目录均为 **11 项测试通过、879 次断言、0 项失败**。5 份归档逐一模拟缺失恢复，恢复后的源码和安装副本与备份字节一致。实际七个 Bun 服务和 PHP 网站全部启动，城市 `/city` 与战斗 `/battle` 的 WebSocket 直连均通过真实登录认证。源码资源和七个数据库的推广检查均为 0 项。
 
-项目未附带跨服排行榜 7010 服务；可选 HTTPS/HTTP2、历史脚本和管理后台全部功能不在本次完整验证范围内。
+项目未附带跨服排行榜 7010 服务；可选 HTTPS/HTTP2、历史脚本不在本次完整验证范围内。以下新后台验证单独记录。
+
+## 新运营后台的依赖
+
+`admin/api`、`admin/web` 已加入根 Bun 工作区，沿用同一个 `bun.lock`，所有直接依赖固定版本：
+
+| 工作区 | 依赖 |
+| --- | --- |
+| admin/api | TypeScript 5.9.3、@types/bun 1.4.4（开发）；HTTP、密码散列和 MariaDB 使用 Bun 内置 API |
+| admin/web | React / React DOM 19.3.1；Vite 8.3.8、@vitejs/plugin-react 6.3.0、TypeScript 5.9.3、React 类型 19.3.0（开发） |
+
+这些版本已在 WSL 的 Bun 1.4.4 上实际安装、构建并通过类型检查及浏览器验收，API 和 Vite 构建均由 Bun 执行。新增依赖不会替换原游戏的 Express / Socket.IO 版本和 Bun 兼容补丁。`admin/web/dist/` 是构建产物，所有层级 node_modules 仍被 Git 忽略。具体后台数据库测试、运行方式和迁移边界见 [后台说明](admin-migration.md)。

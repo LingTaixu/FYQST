@@ -21,3 +21,4 @@ www/wwwroot/www/vp000/data/cache/
 *.mp3
 # Legacy Windows Node runtime is not needed by the WSL Bun backend.
 /Server/node.exe
+/admin/web/dist/

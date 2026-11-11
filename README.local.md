@@ -1,6 +1,6 @@
 # WSL 本地运行（Bun）
 
-JavaScript 游戏后端使用 Bun，包含登录、版本、回调、游戏、城市、战斗和日志七个服务。PHP 登录网站和管理后台继续通过 PHP 运行，数据库使用本地 MariaDB。网站目录为 `www/wwwroot/www`，公共服务位于 `Server/uc`，一区位于 `Server/s1`。
+JavaScript 游戏后端使用 Bun，包含登录、版本、回调、游戏、城市、战斗和日志七个服务。`vp000` 运营后台已迁移为 Vite + React + TypeScript 前端及 Bun + TypeScript API，位于 `admin/`，API 端口为 8090。PHP 继续运行登录网站、GM 和 CDK，并代理 `/vp000/` 到 Bun。数据库使用本地 MariaDB，网站目录为 `www/wwwroot/www`，公共服务位于 `Server/uc`，一区位于 `Server/s1`。后台启动、管理员创建及迁移边界见[后台说明](docs/admin-migration.md)。
 
 ## 环境
 
@@ -60,7 +60,7 @@ bun run start
 
 若使用旧数据库，先执行 `bun run content:clean` 清理历史推广文本，再执行 `bun run content:audit`。附带 SQL 的公告已同步清理。WSL 重启后如数据库未运行，先执行 `sudo systemctl start mariadb`。
 
-前端版本清单及服务器地址已改为 `127.0.0.1`。旧 PHP 的 `mysql_*` 调用由 `scripts/router.php` 加载 `scripts/mysql-compat.php`，通过 mysqli 兼容。管理后台已修复 PHP 8 的 Medoo 参数顺序、字符串索引和 Smarty 异常属性兼容问题。
+前端版本清单及服务器地址已改为 `127.0.0.1`。登录网站等保留的旧 PHP `mysql_*` 调用由 `scripts/router.php` 加载 `scripts/mysql-compat.php`，通过 mysqli 兼容。运营后台不再运行 PHP / Smarty；`/vp000/` 的页面及 API 全部交给 Bun，原目录已备份并移出网站路径。
 
 ## Bun 迁移与代码调整
 
@@ -89,4 +89,4 @@ bun run content:audit
 
 数据库迁移前完整备份位于 `.local/backups/bun-migration/databases.sql`；原始配置、源码及修改行分别保存在 `.local/backups/bun-migration/files/`、`.local/backups/content-source/` 和 `.local/backups/content/`。这些备份有意保留原始内容，便于恢复，运行服务不使用它们。
 
-本次已验证本地 HTTP 服务。可选 HTTPS/HTTP2 模式未做端到端验证。管理后台已验证登录页可访问，未逐项验证后台操作。原项目未附带 7010 端口的跨服排行榜服务，该部分仍缺少对应服务源码。
+本次已验证本地 HTTP 服务及新运营后台的数据库接口和浏览器操作。旧后台迁移的功能对照、当前历史日志缺失情况见后台迁移说明。可选 HTTPS/HTTP2 模式未做端到端验证。原项目未附带 7010 端口的跨服排行榜服务，该部分仍缺少对应服务源码。
