@@ -68,7 +68,16 @@ exports.calHeroProp = function(userData, heroData) {
     _addPropValue(propArr, c_prop.heroPropKey.moveSpeedTemp, t_heroData.moveSpeed);
     _addPropValue(propArr, c_prop.heroPropKey.attackIntervalTemp, t_heroData.attackInterval);
 
+    // fix: 等级超出 c_lvl 配置上限时回退到最高配置行，避免 c_levelUpData.* 报错导致请求挂死
     var c_levelUpData = c_lvl[userLvl];
+    if (!c_levelUpData) {
+        var _maxLvlKey = -1;
+        for (var _k in c_lvl) {
+            var _nk = parseInt(_k);
+            if (!isNaN(_nk) && _nk > _maxLvlKey) _maxLvlKey = _nk;
+        }
+        c_levelUpData = c_lvl[_maxLvlKey] || c_lvl[0];
+    }
     //计算基础成长
     //maxHp attack  defence magicDefence    hit dodge   critical    disCritical
     //幻术师特殊

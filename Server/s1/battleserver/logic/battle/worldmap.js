@@ -90,9 +90,45 @@ class WorldMap {
     getPlayerInMap(id) {
         return this.userList[id];
     }
-    checkEnter() {
+    checkEnter(player) {
         if (this.boss.getStatus() != consts.eBossStatus.alive) {
             return 'Boss准备中,请等待';
+        }
+        return this.checkBossCond(player);
+    }
+    // 中立boss(14)/异界boss(16) 的进入条件校验
+    // 客户端只做了"能不能打"的显示判断，进入时必须由服务端复核，避免越级刷boss
+    checkBossCond(player) {
+        let bossType = this.boss.bossType;
+        if (bossType != consts.eBossType.ZhongLi && bossType != consts.eBossType.HJBoss) {
+            return null;
+        }
+        let cfg = c_bossOther[this.boss.getId()];
+        if (!cfg || !cfg.cond) return null;
+        let conds = cfg.cond;
+        if (!Array.isArray(conds) || conds.length == 0) return null;
+        if (!Array.isArray(conds[0])) conds = [conds];
+
+        let userData = player.userData;
+        if (!userData) return null;
+        let lvl = parseInt(userData.lvl) || 0;
+        let rebirthLvl = parseInt(userData.rebirthLvl) || 0;
+        let magicLvl = parseInt(userData.magicLvl) || 0;
+
+        for (let i = 0; i < conds.length; i++) {
+            let c = conds[i];
+            if (!Array.isArray(c)) continue;
+            let ctype = parseInt(c[0]);
+            let cval = parseInt(c[1]) || 0;
+            if (ctype == 1) {
+                if (lvl < cval) return '等级不足,无法挑战该BOSS';
+            } else if (ctype == 4) {
+                // 转生等级：客户端同时要求 level >= 120
+                if (lvl < 120) return '等级达到120级才能挑战转生BOSS';
+                if (rebirthLvl < cval) return '转生等级不足,无法挑战该BOSS';
+            } else if (ctype == 5) {
+                if (magicLvl < cval) return '魔导等级不足,无法挑战该BOSS';
+            }
         }
         return null;
     }
@@ -150,7 +186,7 @@ class WorldMap {
         player.send("syncUserList", proto);
     }
     enter(player) {
-        let e = this.checkEnter();
+        let e = this.checkEnter(player);
         if (e) {
             player.sendTips(null, e);
             return;
@@ -354,6 +390,13 @@ class WorldMap {
             return;
         }
 
+        // fix: 畸形伤害包(无 attack / 空 hurtArr)取值会抛 TypeError 冒到顶层，
+        // 导致整包伤害被丢弃，这里先做结构校验
+        if (!data || !data.attack || !data.hurtArr || !data.hurtArr.length) {
+            logger.debug("hurt data invalid, ignore:", player.getMapId(), player.getUserId());
+            return;
+        }
+
         let attack = data.attack;
         let hurtData = data.hurtArr[0];
 
@@ -487,6 +530,13 @@ class WorldMap {
     bossHurt(player, data) { // boss 攻击玩家
         //console.log("bossHurt :", player.getUserId(), player.getName(), data);
         if (player.isAllHeroDie()) { // 过滤掉归属者死了，boss 还打的逻辑
+            return;
+        }
+
+        // fix: 畸形伤害包(无 attack / 空 hurtArr)取值会抛 TypeError 冒到顶层，
+        // 导致整包伤害被丢弃，这里先做结构校验
+        if (!data || !data.attack || !data.hurtArr || !data.hurtArr.length) {
+            logger.debug("hurt data invalid, ignore:", player.getMapId(), player.getUserId());
             return;
         }
 
@@ -1258,6 +1308,13 @@ class CSWorldBossMap extends WorldMap {
             return;
         }
 
+        // fix: 畸形伤害包(无 attack / 空 hurtArr)取值会抛 TypeError 冒到顶层，
+        // 导致整包伤害被丢弃，这里先做结构校验
+        if (!data || !data.attack || !data.hurtArr || !data.hurtArr.length) {
+            logger.debug("hurt data invalid, ignore:", player.getMapId(), player.getUserId());
+            return;
+        }
+
         let attack = data.attack;
         let hurtData = data.hurtArr[0];
 
@@ -1346,6 +1403,13 @@ class CSWorldBossMap extends WorldMap {
     bossHurt(player, data) { // boss 攻击玩家
         //console.log("bossHurt :", player.getUserId(), player.getName(), data);
         if (player.isAllHeroDie()) { // 过滤掉归属者死了，boss 还打的逻辑
+            return;
+        }
+
+        // fix: 畸形伤害包(无 attack / 空 hurtArr)取值会抛 TypeError 冒到顶层，
+        // 导致整包伤害被丢弃，这里先做结构校验
+        if (!data || !data.attack || !data.hurtArr || !data.hurtArr.length) {
+            logger.debug("hurt data invalid, ignore:", player.getMapId(), player.getUserId());
             return;
         }
 
@@ -1821,8 +1885,11 @@ class WorldMapManager {
         let ids = Object.keys(c_bossOther);
         for (let i = 0; i < ids.length; i++) {
             let bossEntity = c_bossOther[ids[i]];
+            // 中立boss(14)之前漏了实例化，导致 getBossListByType(14) 永远是空数组，
+            // 客户端"中立BOSS"页签因此一片空白；这里一并创建
             if (bossEntity.type == consts.eBossType.CSTianMing ||
-                bossEntity.type == consts.eBossType.HJBoss) {
+                bossEntity.type == consts.eBossType.HJBoss ||
+                bossEntity.type == consts.eBossType.ZhongLi) {
                 let m = this._createMap(bossEntity.type, bossEntity.id);
                 m.initMap(bossEntity);
             }
@@ -1857,7 +1924,14 @@ class WorldMapManager {
         // 天命boss定时同步信息 (每秒钟同步一次)
         var tmNowSec = new Date().getTime();
         bossManager.check();
-        let bossInfo = bossManager.getBossListByType(consts.eBossType.CSTianMing);
+        // 各类型boss列表按类型缓存，避免每张地图都遍历一次全部boss
+        let bossInfoCache = {};
+        let getAllBossInfo = (bossType) => {
+            if (!bossInfoCache[bossType]) {
+                bossInfoCache[bossType] = bossManager.getBossListByType(bossType);
+            }
+            return bossInfoCache[bossType];
+        };
         let mapIds = Object.keys(this.worldMapList);
         for (let i = 0; i < mapIds.length; i++) {
             let mapId = mapIds[i];
@@ -1867,8 +1941,13 @@ class WorldMapManager {
                 delete this.worldMapList[mapId];
             } else {
                 wmap.check();
-                if (wmap.boss.bossType == consts.eBossType.CSTianMing) {
-                    wmap.broadcast("syncBossInfo", bossInfo);
+                let btype = wmap.boss.bossType;
+                // 中立boss(14)/异界boss(16) 也要推送列表，否则客户端只能靠手动请求，
+                // 血量刷新、可挑战状态也不会实时更新
+                if (btype == consts.eBossType.CSTianMing ||
+                    btype == consts.eBossType.HJBoss ||
+                    btype == consts.eBossType.ZhongLi) {
+                    wmap.broadcast("syncBossInfo", getAllBossInfo(btype));
                 }
             }
         }

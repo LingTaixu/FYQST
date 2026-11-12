@@ -1504,7 +1504,8 @@ var _calLootExpc = function(myOutPkData, mUserData, eUserData, mPkColor, ePkColo
      */
     var mExpcMult = pkOutUtils.calLootExpcMult(mPkColor);
     var eExpcMult = pkOutUtils.calLootExpcMult(ePkColor);
-    var pkExpcMult = c_lvl[mUserData.lvl].pkExpcMult;
+    var _pkLvlCfg = c_lvl[mUserData.lvl];
+    var pkExpcMult = _pkLvlCfg ? _pkLvlCfg.pkExpcMult : 0;
     var lootExpc = formula.calPkOutExpc(myOutPkData.pkValue, eUserData.lvl, pkExpcMult, mExpcMult, eExpcMult);
     lootExpc = Math.abs(lootExpc);
     lootExpc = parseInt(lootExpc);

@@ -250,8 +250,13 @@ var _handleLogin = function(session, data, next) {
  * --------------------------------------------------局部方法-------------------------------------------------------------------
  */
 
+var _isPomeloReady = function() {
+    // 本地部署以 mainApp.js 直接跑 http，没有 pomelo app；此时只能走 http session 分支
+    return !!(pomelo.app && pomelo.app.get);
+};
+
 var _initSession = function(session, accountData, userData, cb) {
-    if (g_common.appIsHttp) {
+    if (g_common.appIsHttp || !_isPomeloReady()) {
         session.set(consts.session.accountId, accountData.id);
         session.set(consts.session.serverIndexId, userData.serverIndexId);
         session.set(consts.session.isGM, accountData.status == consts.accountStatus.gm ? 1 : 0);
@@ -279,6 +284,7 @@ var _initSession = function(session, accountData, userData, cb) {
  * @returns {*}
  */
 var _checkHasLogin = function(session, uid, cb) {
+    if (!_isPomeloReady()) return cb();
     var sessionService = pomelo.app.get('sessionService');
     var u = sessionService.getByUid(uid);
     if (!u) return cb();
@@ -322,6 +328,7 @@ var _remoteAddUser = function(session, userData, accountData, cb) {
     uData.loginTime = Date.now();
     uData.ip = ip; //ip
 
+    if (!_isPomeloReady()) return cb();
     pomelo.app.rpc.a.userRemote.addUser(session, uData, function(err, data) {
         if (err) return cb(err);
         cb();
@@ -340,6 +347,7 @@ var _onUserLeave = function(session, reason) {
     }
     var userId = session.get(consts.session.userId);
     if (!userId) return;
+    if (!_isPomeloReady()) return;
     pomelo.app.rpc.a.userRemote.removeUser(session, userId, function() {
 
     });

@@ -220,6 +220,9 @@ class Player extends Actor{
 		this.userData.lvl =  userData.lvl || this.userData.lvl; 
 		this.userData.iconId = userData.iconId || this.userData.iconId; 
 		this.userData.exData = userData.exData || this.userData.exData; 
+		// 中立boss/异界boss 进入条件需要转生等级与魔导等级
+		this.userData.magicLvl = userData.magicLvl || this.userData.magicLvl || 0;
+		this.userData.rebirthLvl = userData.rebirthLvl || this.userData.rebirthLvl || 0;
 		this.showData = showData;
 		this.guildData = guildData;
 		this.seqheroIds = [];
@@ -244,6 +247,8 @@ class Player extends Actor{
 		this.userData.lvl = userData.lvl || this.userData.lvl; 
 		this.userData.iconId = userData.iconId || this.userData.iconId; 
 		this.userData.exData = userData.exData || this.userData.exData; 
+		if(userData.magicLvl !== undefined) this.userData.magicLvl = userData.magicLvl;
+		if(userData.rebirthLvl !== undefined) this.userData.rebirthLvl = userData.rebirthLvl;
 	}
 	canOwnerBoss(bossType, groupType){
 		if(bossType != consts.eBossType.HJBoss) return true;

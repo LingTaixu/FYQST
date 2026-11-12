@@ -148,10 +148,14 @@ class Skill {
 	} 
 	getDeadTime(){
 		if (this.status == consts.eBossStatus.dead){
-			return this.statusTime;
+			return this.statusTime || this.deadTime || null;
 		}else if (this.status == consts.eBossStatus.readyForAlive){
-			return this.statusTime;
+			return this.statusTime || this.deadTime || null;
+		}else if (this.deadTime){
+			// 已刷新但保留上一次死亡时间，用于客户端展示冷却
+			return this.deadTime;
 		}
+		return null;
 	}
 	getFightStatus(){
 		return this.fightStatus;
@@ -237,6 +241,9 @@ class Skill {
 		//console.log("boss changeStatus:", this.getId(), this.status, "->", status);
 		this.status = status;
 		this.statusTime = new Date();
+		if(status == consts.eBossStatus.dead){
+			this.deadTime = this.statusTime;
+		}
 	}
 	checkFightStatus(){
 		let changed = false;
@@ -431,12 +438,25 @@ class Skill {
  			let bossId = bossIds[i];
  			let boss = this.bossList[bossId];
  			if(boss.bossType == type){
+	 			// state/alive 必须下发：客户端"异界BOSS"页签用 state==1 判定能否点挑战
+				// 1 可挑战 / 0 已死亡待刷新 / 2 准备中
+				let state = 2;
+				if (boss.getStatus() == consts.eBossStatus.alive) {
+					state = boss.getHp() > 0 ? 1 : 0;
+				} else if (boss.getStatus() == consts.eBossStatus.dead) {
+					state = 0;
+				}
 	 			lst.push(
 					{
 						id: boss.getId(),
 						type: boss.bossType,
+						fightType: boss.bossType,
 						hp: boss.getHp(),
+						maxHp: boss.getMaxHp(),
+						state: state,
+						alive: state == 1 ? 1 : 0,
 						bornTime: boss.bornTime,
+						refreshInterval: (c_bossOther[boss.getId()] || {}).refreshInterval || 0,
 						lastOwnerUId: boss.lastOwnerUId,
 						lastOwnerUName: boss.lastOwnerUName,
 						lastOwnerGName: boss.lastOwnerGName,
