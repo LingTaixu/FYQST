@@ -2,6 +2,8 @@
 
 基于 Egret 的浏览器游戏，包含 Bun 游戏后端、PHP 登录网站、**Vite + React + TypeScript 运营后台**和 MariaDB 数据库。`vp000` 的 API 使用 **Bun + TypeScript**，不需要 Node.js。当前配置面向 **WSL 本地运行**，服务地址统一为 `127.0.0.1`；游戏音乐与音效默认关闭，客户端不会下载音频。
 
+Linux 公网服务器的 Nginx、systemd、数据库及同源网关部署方式见 [服务器部署说明](deploy/server/README.md)。
+
 ## 环境与首次运行
 
 已在 WSL Debian 13、Bun 1.4.4、PHP 8.4、MariaDB 11.8 上验证。WSL 需要启用 systemd，并可运行 `systemctl --user`。
@@ -65,7 +67,7 @@ scripts/              本地启动、数据库初始化、内容清理、依赖�
 tests/                Bun 自动化测试
 patches/              Socket.IO / Engine.IO 的 Bun 兼容补丁
 vendor/npm/           无法独立下载的内部模块压缩包及 SHA-256 清单
-deploy/               Nginx 音频禁传配置
+deploy/               Nginx 音频禁传配置与 Linux 服务器部署脚本
 docs/                 依赖清点、兼容性和带宽说明
 package.json          根工作区、命令和补丁配置
 bun.lock              提交到 Git 的依赖锁文件
@@ -99,6 +101,8 @@ Git 应包含源码、各层 package.json、bun.lock、patches、vendor 压缩�
 
 - [依赖恢复与兼容性说明](docs/dependencies.md)
 - [Bun TypeScript 后台使用、迁移与功能对照](docs/admin-migration.md)
+- [礼包码（CDK）生成与账号绑定](docs/cdk.md)
+- [游戏内每日奖励悬浮入口](docs/daily-reward.md)
 - [音频与低带宽策略](docs/bandwidth.md)
 - [WSL 配置、迁移与故障排查](README.local.md)
 - [完整原始依赖清单](docs/dependencies-inventory.json)

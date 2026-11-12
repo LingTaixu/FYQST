@@ -245,6 +245,30 @@ export function ResourcePage({
             </button>
           </div>
         )}
+        {r.key === "gifts" && has("gifts.create") && !!data?.rows.length && (
+          <div className="batch-toolbar">
+            <button
+              className="text-button"
+              onClick={() =>
+                setSelected(
+                  selected.size === data.rows.length
+                    ? new Set()
+                    : new Set(data.rows.map((row) => Number(row.id))),
+                )
+              }
+            >
+              选择本页
+            </button>
+            <span>已选 {selected.size} 个礼包码</span>
+            <button
+              className="button primary small"
+              disabled={!selected.size || busy}
+              onClick={() => setModal("gift-bind")}
+            >
+              绑定账号
+            </button>
+          </div>
+        )}
         {error && <Alert>{error}</Alert>}
         {!data && !error ? (
           <Loading />
@@ -256,7 +280,8 @@ export function ResourcePage({
               onRow={show}
               selected={selected}
               onSelect={
-                r.key === "mail-review" && status === "0"
+                (r.key === "mail-review" && status === "0") ||
+                (r.key === "gifts" && has("gifts.create"))
                   ? (id) =>
                       setSelected((old) => {
                         const next = new Set(old);
@@ -491,7 +516,9 @@ export function ResourcePage({
                     }
                   : modal === "mail-compose" || modal === "player-progress"
                     ? { userId: detail?.id || 0 }
-                    : {}
+                    : modal === "gift-bind"
+                      ? { ids: [...selected] }
+                      : {}
             }
             onDone={done}
           />

@@ -7,6 +7,7 @@ const date = (offset = 0) =>
 export const actionTitles: Record<string, string> = {
   "mail-compose": "撰写运营邮件",
   "gift-generate": "批量生成礼包码",
+  "gift-bind": "绑定礼包码到账号",
   recharge: "模拟充值",
   account: "账号状态操作",
   "player-update": "修改角色数据",
@@ -65,9 +66,9 @@ export function ActionForm({
       },
       {
         key: "items",
-        label: "奖励附件 JSON（物品 ID : 数量，金币 99 / 钻石 200）",
-        type: "json",
-        default: "{}",
+        label: "奖励附件（金币 99 / 钻石 200，可搜索物品并填写数量）",
+        type: "items",
+        default: {},
       },
       {
         key: "days",
@@ -117,8 +118,27 @@ export function ActionForm({
         default: date(30 * 86400000),
         required: true,
       },
-      { key: "items", label: "奖励附件 JSON", type: "json", default: "{}" },
+      {
+        key: "items",
+        label: "礼包奖励（金币 99 / 钻石 200，可搜索物品并填写数量）",
+        type: "items",
+        default: {},
+      },
+      {
+        key: "bindAccountId",
+        label: "绑定账号（绑定后仅该账号可兑换）",
+        type: "account",
+        default: 0,
+      },
       { key: "content", label: "礼包说明", type: "textarea", max: 200 },
+    ],
+    "gift-bind": [
+      {
+        key: "bindAccountId",
+        label: "绑定账号（选择账号后仅该账号可兑换；留空解除绑定）",
+        type: "account",
+        default: 0,
+      },
     ],
     recharge: [
       {
@@ -241,9 +261,11 @@ export function ActionForm({
   return (
     <>
       <div className="inline-note">
-        {kind === "mail-compose"
-          ? "所有运营邮件均进入审核队列。月卡、积分等奖励请按原道具 ID 填入附件。"
-          : kind === "player-update"
+        {kind === "gift-generate"
+          ? "礼包码为随机 24 位十六进制串；选择绑定账号后，只有该账号兑换有效。"
+          : kind === "mail-compose"
+            ? "所有运营邮件均进入审核队列。附件按物品选择后填写数量，金币 99、钻石 200。"
+            : kind === "player-update"
             ? "修改会应用到游戏缓存，由游戏服务按原保存周期落库。请先确认角色 ID 和当前区服。"
             : kind === "recharge"
               ? "此操作创建 GM 模拟订单，会实际发放游戏商品，报表将其单独统计。"
@@ -259,16 +281,21 @@ export function ActionForm({
           const body =
             kind === "mail-compose"
               ? { ...data, broadcast: Number(data.broadcast) === 1 }
-              : kind === "player-update"
+              : kind === "gift-bind"
                 ? {
-                    userId: initial.id,
-                    changes: Object.fromEntries(
-                      Object.entries(data).filter(
-                        ([k, v]) => String(v) !== String(initial[k] ?? ""),
-                      ),
-                    ),
+                    ids: initial.ids || [],
+                    bindAccountId: Number(data.bindAccountId) || 0,
                   }
-                : data;
+                : kind === "player-update"
+                  ? {
+                      userId: initial.id,
+                      changes: Object.fromEntries(
+                        Object.entries(data).filter(
+                          ([k, v]) => String(v) !== String(initial[k] ?? ""),
+                        ),
+                      ),
+                    }
+                  : data;
           const result = await api("/operations/" + kind + query(server), {
             method: "POST",
             body,

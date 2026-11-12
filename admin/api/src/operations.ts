@@ -122,6 +122,7 @@ export async function perform(
     return composeMail(request, actor, body, serverId);
   if (action === "mail-review") return reviewMail(request, actor, body);
   if (action === "gift-generate") return generateGifts(request, actor, body);
+  if (action === "gift-bind") return bindGifts(request, actor, body);
   if (action === "recharge")
     return simulateRecharge(request, actor, body, serverId);
   throw new HttpError(404, "操作不存在");
@@ -327,12 +328,14 @@ async function generateGifts(request: Request, actor: Actor, body: Row) {
   if (end <= start) throw new HttpError(400, "结束时间必须晚于开始时间");
   const items = attachments(body.items || {}),
     type = integer(body.type || 0, "礼包类型", 0, 1),
-    period = integer(body.period || 0, "有效周期", 0, 3650);
+    period = integer(body.period || 0, "有效周期", 0, 3650),
+    bindAccountId = integer(body.bindAccountId || 0, "绑定账号", 0);
   return idempotent(request, actor, body, async (tx) => {
+    if (bindAccountId) await requireAccount(tx, bindAccountId);
     const codes = Array.from({ length: count }, () =>
       randomBytes(12).toString("hex"),
     );
-    const tuples = codes.map(() => "(?,?,?,?,?,?,?,?,?,0,1)").join(",");
+    const tuples = codes.map(() => "(?,?,?,?,?,?,?,?,?,0,1,?)").join(",");
     const values = codes.flatMap((code) => [
       name,
       content,
@@ -343,17 +346,59 @@ async function generateGifts(request: Request, actor: Actor, body: Row) {
       items,
       period,
       0,
+      bindAccountId,
     ]);
     await tx.unsafe(
-      `INSERT INTO ${M("uw_coupon")} (name,content,code,type,startTime,endTime,items,period,serverId,isUsed,isNew) VALUES ${tuples}`,
+      `INSERT INTO ${M("uw_coupon")} (name,content,code,type,startTime,endTime,items,period,serverId,isUsed,isNew,bindAccountId) VALUES ${tuples}`,
       values,
     );
     await audit(tx, actor.user.name, "GIFT_GENERATE", "gifts", {
       name,
       count,
+      bindAccountId,
       items: JSON.parse(items),
     });
-    return { message: `已生成 ${count} 个礼包码`, codes };
+    return {
+      message: bindAccountId
+        ? `已生成 ${count} 个礼包码，仅账号 ${bindAccountId} 可兑换`
+        : `已生成 ${count} 个礼包码`,
+      codes,
+    };
+  });
+}
+async function requireAccount(tx: Query, accountId: number) {
+  const [account] = await tx.unsafe(
+    `SELECT id FROM ${L("uw_account")} WHERE id=?`,
+    [accountId],
+  );
+  if (!account) throw new HttpError(404, "绑定的账号不存在");
+}
+async function bindGifts(request: Request, actor: Actor, body: Row) {
+  requirePermission(actor, "gifts.create");
+  if (!Array.isArray(body.ids) || body.ids.length < 1 || body.ids.length > 500)
+    throw new HttpError(400, "一次请选择 1 至 500 个礼包码");
+  const ids = [
+    ...new Set(body.ids.map((id: unknown) => integer(id, "礼包码 ID", 1))),
+  ];
+  const bindAccountId = integer(body.bindAccountId ?? 0, "绑定账号", 0);
+  return idempotent(request, actor, body, async (tx) => {
+    if (bindAccountId) await requireAccount(tx, bindAccountId);
+    const result = await tx.unsafe(
+      `UPDATE ${M("uw_coupon")} SET bindAccountId=? WHERE id IN (${ids
+        .map(() => "?")
+        .join(",")}) AND isUsed=0`,
+      [bindAccountId, ...ids],
+    );
+    await audit(tx, actor.user.name, "GIFT_BIND", "gifts", {
+      ids,
+      bindAccountId,
+    });
+    return {
+      message: bindAccountId
+        ? `已绑定 ${result.affectedRows} 个礼包码到账号 ${bindAccountId}`
+        : `已解除 ${result.affectedRows} 个礼包码的账号绑定`,
+      count: Number(result.affectedRows),
+    };
   });
 }
 async function simulateRecharge(
