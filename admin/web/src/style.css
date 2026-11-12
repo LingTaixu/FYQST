@@ -1432,3 +1432,105 @@ tbody tr:hover {
     transition: none !important;
   }
 }
+
+/* 物品 / 账号选择器：搜索下拉 + 数量行 */
+.item-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.item-search {
+  position: relative;
+}
+.item-options {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  box-shadow: 0 12px 28px rgba(56, 66, 44, 0.12);
+}
+.item-options button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+.item-options button:hover {
+  background: #f2f5ea;
+}
+.item-options .item-id {
+  min-width: 56px;
+  color: #9aa78c;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+.item-options .item-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item-options .item-type {
+  color: #a7b098;
+  font-size: 11px;
+}
+.item-empty {
+  padding: 10px;
+  color: #9aa78c;
+  font-size: 12px;
+}
+.item-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.item-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 110px 32px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: #f7f9f2;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 12px;
+}
+.item-row .item-id {
+  color: #9aa78c;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+.item-row .item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item-row input {
+  width: 100%;
+  font-size: 12px;
+}
+.item-row .icon-button {
+  justify-self: end;
+  font-size: 16px;
+  line-height: 1;
+  color: #a08d7e;
+}
+.picker-hint {
+  margin: 0;
+  color: #9aa78c;
+  font-size: 11px;
+}

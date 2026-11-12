@@ -344,6 +344,44 @@ integration("MariaDB admin API integration (temporary fixtures)", () => {
     );
     expect(account.status).toBe(3);
   });
+  test("gift codes can be bound to one account and released again", async () => {
+    const generated = await call("/operations/gift-generate", "POST", {
+      name,
+      count: 2,
+      type: 0,
+      items: { 200: 1 },
+      startTime: "2026-01-01 00:00:00",
+      endTime: "2030-01-01 00:00:00",
+      bindAccountId: accountId,
+    });
+    expect(generated.status, await generated.clone().text()).toBe(200);
+    const { codes } = (await generated.json()) as any;
+    const rows = await db.unsafe(
+      `SELECT id,bindAccountId FROM ${M("uw_coupon")} WHERE code IN (?,?)`,
+      codes,
+    );
+    expect(rows.length).toBe(2);
+    for (const row of rows) expect(Number(row.bindAccountId)).toBe(accountId);
+    const ids = rows.map((row: any) => Number(row.id));
+    expect(
+      (
+        await call("/operations/gift-bind", "POST", { ids, bindAccountId: 0 })
+      ).status,
+    ).toBe(200);
+    const released = await db.unsafe(
+      `SELECT bindAccountId FROM ${M("uw_coupon")} WHERE id IN (?,?)`,
+      ids,
+    );
+    for (const row of released) expect(Number(row.bindAccountId)).toBe(0);
+    expect(
+      (
+        await call("/operations/gift-bind", "POST", {
+          ids,
+          bindAccountId: 99999999,
+        })
+      ).status,
+    ).toBe(404);
+  });
   test("broadcast drafts and rejection never deliver unapproved rewards", async () => {
     const result = await call("/operations/mail-compose?server=1", "POST", {
       broadcast: true,

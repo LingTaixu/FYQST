@@ -35,6 +35,8 @@ var _Class = module.exports = function(){
     this.isNew = 0;/*是否使用新兑换码机制*/
     /** 用户账号id **/
     this.accountId = 0;/*用户账号id*/
+    /** 绑定账号id **/
+    this.bindAccountId = 0;/*绑定账号id，0 为不限制*/
 
 };
 _Class.tableName = 'uw_coupon';

@@ -296,10 +296,17 @@ export const resources: Resource[] = [
     read: "gifts.read",
     search: ["name", "code"],
     columns: cols(
-      "id:ID,name:名称,code:兑换码,type:类型,isUsed:已使用,userId:领取角色,startTime:开始,endTime:到期",
+      "id:ID,name:名称,code:兑换码,type:类型,isUsed:已使用,userId:领取角色,bindAccountId:绑定账号,startTime:开始,endTime:到期",
     ),
     fields: [],
-    detail: ["items", "content", "serverId", "channelIds", "period"],
+    detail: [
+      "items",
+      "content",
+      "serverId",
+      "channelIds",
+      "period",
+      "bindAccountId",
+    ],
   },
   {
     key: "recharge",

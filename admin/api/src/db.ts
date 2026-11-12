@@ -1,5 +1,5 @@
 import { SQL } from "bun";
-import { A, L, config, table } from "./config";
+import { A, L, M, config, table } from "./config";
 import { HttpError, integer } from "./validation";
 
 export const db = new SQL(config.dbUrl, {
@@ -22,6 +22,15 @@ export async function migrate() {
     `DELETE FROM ${A("fyqst_admin_session")} WHERE expires_at < ?`,
     [Date.now()],
   );
+  // 兑换码绑定账号：绑定后只有该账号可以兑换，0 表示不限制。
+  const [couponBind] = await db.unsafe(
+    `SELECT 1 AS found FROM information_schema.columns WHERE table_schema=? AND table_name='uw_coupon' AND column_name='bindAccountId'`,
+    [config.mainDb],
+  );
+  if (!couponBind)
+    await db.unsafe(
+      `ALTER TABLE ${M("uw_coupon")} ADD COLUMN bindAccountId INT NOT NULL DEFAULT 0 COMMENT '绑定账号 id，0 为不限制'`,
+    );
   // Successful request keys are retained: retrying an old reward must never resend it.
 }
 export async function serverContext(value: unknown, q: Query = db) {

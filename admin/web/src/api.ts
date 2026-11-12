@@ -21,11 +21,18 @@ export async function api<T = Row>(
     key?: string;
   } = {},
 ): Promise<T> {
-  const method = options.method || "GET";
+  const method = (options.method || "GET").toUpperCase();
   const fingerprint =
     method + " " + path + " " + JSON.stringify(options.body ?? {});
+  // getRandomValues also works on HTTP deployments without randomUUID.
   const key =
-    options.key || pendingWrites.get(fingerprint) || crypto.randomUUID();
+    method === "GET"
+      ? ""
+      : options.key ||
+        pendingWrites.get(fingerprint) ||
+        Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) =>
+          byte.toString(16).padStart(2, "0"),
+        ).join("");
   if (method !== "GET") pendingWrites.set(fingerprint, key);
   const response = await fetch("/vp000/api" + path, {
     method,

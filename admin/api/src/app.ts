@@ -20,6 +20,7 @@ import {
   playerFields,
 } from "./operations";
 import { rechargeProducts } from "./game";
+import { searchAccounts, searchItems } from "./catalog";
 import { dashboard, report } from "./reports";
 import { HttpError } from "./validation";
 import { legacyDates } from "./time";
@@ -133,6 +134,37 @@ export async function app(request: Request, ip = "local"): Promise<Response> {
         })),
       });
     }
+    if (path === "/vp000/api/items" && request.method === "GET") {
+      if (
+        !["mails.compose", "mails.broadcast", "gifts.read", "gifts.create"].some(
+          (permission) => allowed(actor, permission),
+        )
+      )
+        throw new HttpError(403, "当前管理员没有此操作权限");
+      const limit = pageLimit(url.searchParams.get("limit"));
+      const ids = (url.searchParams.get("ids") || "")
+        .split(",")
+        .map(Number)
+        .filter((id) => Number.isInteger(id) && id > 0)
+        .slice(0, 60);
+      return response(request, {
+        items: searchItems(url.searchParams.get("q") || "", ids, limit),
+      });
+    }
+    if (path === "/vp000/api/accounts" && request.method === "GET") {
+      if (
+        !["players.read", "mails.compose", "mails.broadcast", "gifts.create"].some(
+          (permission) => allowed(actor, permission),
+        )
+      )
+        throw new HttpError(403, "当前管理员没有此操作权限");
+      return response(request, {
+        accounts: await searchAccounts(
+          url.searchParams.get("q") || "",
+          pageLimit(url.searchParams.get("limit")),
+        ),
+      });
+    }
     if (path === "/vp000/api/dashboard" && request.method === "GET")
       return response(request, await dashboard(actor, url));
     const resource = /^\/vp000\/api\/resources\/([a-z-]+)(?:\/(\d+))?$/.exec(
@@ -202,8 +234,12 @@ export async function app(request: Request, ip = "local"): Promise<Response> {
     );
   }
 }
-async function staticFile(request: Request, url: URL, path: string) {
-  if (!["GET", "HEAD"].includes(request.method))
+function pageLimit(value: string | null) {
+  const limit = Number(value || 30);
+  if (!Number.isInteger(limit) || limit < 1) return 30;
+  return Math.min(limit, 100);
+}
+async function staticFile(request: Request, url: URL, path: string) {  if (!["GET", "HEAD"].includes(request.method))
     throw new HttpError(405, "请求方法不受支持");
   if (path === "/vp000") return Response.redirect(new URL("/vp000/", url), 302);
   if (!path.startsWith("/vp000/")) throw new HttpError(404, "页面不存在");

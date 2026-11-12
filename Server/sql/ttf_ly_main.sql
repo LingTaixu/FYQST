@@ -302,6 +302,7 @@ CREATE TABLE `uw_coupon` (
   `channelIds` text COMMENT '渠道组',
   `isNew` int(2) DEFAULT '0' COMMENT '是否使用新兑换码机制',
   `period` int(11) DEFAULT '0',
+  `bindAccountId` int(11) NOT NULL DEFAULT '0' COMMENT '绑定账号 id，0 为不限制',
   PRIMARY KEY (`id`),
   KEY `uw_coupon_uid` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

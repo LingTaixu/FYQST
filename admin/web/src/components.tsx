@@ -8,6 +8,7 @@ import {
 } from "react";
 import type { Field, Row } from "../../shared/types";
 import { display, localDate } from "./api";
+import { AccountPicker, ItemPicker } from "./pickers";
 
 export function Icon({ name, size = 20 }: { name: string; size?: number }) {
   const paths: Record<string, ReactNode> = {
@@ -179,7 +180,9 @@ export function Form({
     Object.fromEntries(
       fields.map((f) => [
         f.key,
-        initial[f.key] ?? f.default ?? (f.type === "number" ? 0 : ""),
+        initial[f.key] ??
+          f.default ??
+          (f.type === "items" ? {} : f.type === "number" || f.type === "account" ? 0 : ""),
       ]),
     ),
   );
@@ -206,7 +209,7 @@ export function Form({
           <label
             className={
               "form-field " +
-              (["textarea", "json"].includes(f.type || "") ? "full" : "")
+              (["textarea", "json", "items", "account"].includes(f.type || "") ? "full" : "")
             }
             key={f.key}
             htmlFor={prefix + f.key}
@@ -215,7 +218,17 @@ export function Form({
               {f.label}
               {f.required && <em> *</em>}
             </span>
-            {f.choices ? (
+            {f.type === "items" ? (
+              <ItemPicker
+                value={values[f.key] || {}}
+                onChange={(value) => setValues({ ...values, [f.key]: value })}
+              />
+            ) : f.type === "account" ? (
+              <AccountPicker
+                value={Number(values[f.key] || 0)}
+                onChange={(value) => setValues({ ...values, [f.key]: value })}
+              />
+            ) : f.choices ? (
               <select
                 id={prefix + f.key}
                 value={String(values[f.key])}

@@ -2,11 +2,19 @@ export type Row = Record<string, any>;
 export type Field = {
   key: string;
   label: string;
-  type?: "text" | "number" | "textarea" | "json" | "datetime" | "password";
+  type?:
+    | "text"
+    | "number"
+    | "textarea"
+    | "json"
+    | "datetime"
+    | "password"
+    | "items"
+    | "account";
   required?: boolean;
   max?: number;
   min?: number;
-  default?: string | number;
+  default?: string | number | Record<string, unknown>;
   choices?: Record<string, string>;
 };
 export type ResourceMeta = {

@@ -53,6 +53,8 @@ exports.use = function (client, userId, accountId ,code, cb) {
             var couponData = data[0], userData = gamePlayer.userData;
             //判断是否存在
             if (!couponData) return cb(getMsg(c_msgCode.noCdKey));
+            //绑定账号校验：绑定后只有指定账号可以兑换该码
+            if (couponData.bindAccountId && Number(couponData.bindAccountId) !== Number(accountId)) return cb(getMsg(c_msgCode.noCdKey));
             var nowDate = new Date();
             //判断是否过期
             if (couponData.startTime.isAfter(nowDate) || couponData.endTime.isBefore(nowDate))  return cb(getMsg(c_msgCode.noCdKey));
